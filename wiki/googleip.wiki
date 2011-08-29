@@ -1,3 +1,6 @@
+C:\WINDOWS\system32\drivers\etc\hosts
+
+
 = Google IP =
 
   * 203.208.39.22
