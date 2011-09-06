@@ -258,8 +258,46 @@ cp /usr/local/mysql/support-files/my-medium.cnf /etc/my.cnf
 
 = how to install multi mysql server=
 
-== 1. 先以正常方式安装好 mysql ==
-== 2. ==
+== 第一种、安装多个同一版本的 mysql server ==
+=== 1. 以正常方式安装好 mysql server ===
+
+== 第二种、安装多个不同版本的 mysql server ==
+
+
+----
+
+= available options for configuring mysql =
+
+== 参考文档 ==
+  * Autotools to CMake Transition Guide
+    * http://forge.mysql.com/wiki/Autotools_to_CMake_Transition_Guide
+
+==  configure mysql 5.1.58 ==
+  * 当需要重新编译时需要执行以下 shell 命令
+{{{
+make clean
+rm config.cache
+}}}
+
+==  configure mysql 5.5.15 ==
+  * 当需要重新编译时需要执行以下 shell 命令
+{{{
+make clean
+rm CMakeCache.txt
+}}}
+
+== Installation Layout Options ==
+|| *Parameter* ||  *configure Option* ||  *CMake Option* ||  *CMake Notes* ||
+|| Installation base directory ||  --prefix=/usr ||  -DCMAKE_INSTALL_PREFIX=/usr ||
+|| mysqld directory ||  --libexecdir=/usr/sbin ||  -DINSTALL_SBINDIR=sbin ||  interpreted relative to prefix ||
+|| Data directory ||  --localstatedir=/var/lib/mysql ||  -DMYSQL_DATADIR=/var/lib/mysql ||
+|| Config directory (for my.cnf) ||  --sysconfdir=/etc/mysql ||  -DSYSCONFDIR=/etc/mysql ||
+|| Plugin directory ||  --with-plugindir=/usr/lib64/mysql/plugin ||  -DINSTALL_PLUGINDIR=lib64/mysql/plugin ||  interpreted relative to prefix ||
+|| Man page directory ||  --mandir=/usr/share/man ||  -DINSTALL_MANDIR=share/man ||  interpreted relative to prefix ||
+|| Shared-data directory ||  --sharedstatedir=/usr/share/mysql ||  -DINSTALL_SHAREDIR=share ||  this is where aclocal/mysql.m4 should be installed ||
+|| Library installation directory ||  --libdir=/usr/lib64/mysql ||  -DINSTALL_LIBDIR=lib64/mysql ||  interpreted relative to prefix ||
+|| Header installation directory ||  --includedir=/usr/include/mysql ||  -DINSTALL_INCLUDEDIR=include/mysql ||  interpreted relative to prefix ||
+|| Info doc directory ||  --infodir=/usr/share/info ||  -DINSTALL_INFODIR=share/info ||  interpreted relative to prefix ||
 
 
 ----
