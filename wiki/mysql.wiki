@@ -95,10 +95,9 @@ FLUSH PRIVILEGES;
 
 
 == uninstall ==
-  * 卸载 mysql server
-  * [mysql#backup 先备份好数据]
+  * [mysql#backup 先备份数据]
   * 接着 [mysql#stop 停止 mysql server]
-  * 然后执行以下 shell 命令
+  * 然后执行以下 shell 命令来卸载 mysql server
 {{{
 # 取消随机启动设置
 rm -f /etc/rc0.d/K01mysql
