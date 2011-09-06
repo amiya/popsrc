@@ -1,7 +1,8 @@
 
 = 特别注意 =
-  * 以下操作仅在 CentOS 5.5 测试通过，未在其它操作系统测试。
-  * mysql 通过源代码编译安装在默认的路径下 /usr/local/mysql
+  * 本文档是关于在 CentOS 5.5 下安装 MySQL 的方法, 未在其它操作系统测试。
+  * MySQL 通过源代码编译安装在默认的路径下 /usr/local/mysql
+  * MySQL 配置文件路径是 /etc/my.cnf
   * 运行 mysql server 的系统用户是 mysql
 
 = 快速链接 =
@@ -26,6 +27,12 @@
   * [mysql#how_to_uninstall_mysql_server how to uninstall mysql server]
 
 = 参考文档 =
+  * Using Option Files (MySQL 配置文件说明)
+    * http://dev.mysql.com/doc/refman/5.5/en/option-files.html
+  *  Running Multiple MySQL Instances on One Machine
+    * http://dev.mysql.com/doc/refman/5.5/en/multiple-servers.html
+  * Running Multiple MySQL Instances on Unix
+    * http://dev.mysql.com/doc/refman/5.5/en/multiple-unix-servers.html
   * http://dev.mysql.com/doc/refman/5.5/en/installing-source-distribution.html
   * http://dev.mysql.com/doc/refman/5.5/en/default-privileges.html
   * http://blog.s135.com/nginx_php_v6/
@@ -220,7 +227,7 @@ make && make install
 == 4. 初始化 mysql ==
 {{{
 chown -R mysql:mysql /usr/local/mysql
-/usr/local/mysql/scripts/mysql_install_db --user=mysql
+/usr/local/mysql/scripts/mysql_install_db --user=mysql --force
 chown -R root /usr/local/mysql
 chown -R mysql /usr/local/mysql/data
 }}}
@@ -247,7 +254,10 @@ cp /usr/local/mysql/support-files/my-medium.cnf /etc/my.cnf
 
 
 
-= how to install multi mysql server 5.5.15 =
+= how to install multi mysql server=
+
+== 1. 先以正常方式安装好 mysql ==
+== 2. ==
 
 
 ----
