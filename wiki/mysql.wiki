@@ -1,0 +1,141 @@
+
+= 特别注意 =
+
+以下操作仅在 CentOS 5.5 测试通过，未在其它操作系统测试。
+
+
+----
+
+= mysql 基本操作 =
+
+== mysql 完成安装后的安全设置 ==
+  * 登录 mysql server (root 用户初始密码为空)
+<code language="sh">
+/usr/local/mysql/bin/mysqladmin -u root -p
+</code>
+  * 以下操作处于 mysql 操作界面
+<code language="sql">
+# 进入 mysql 数据库
+USE mysql;
+
+# 列出当前已有用户
+SELECT user, host, password FROM user;
+
+# 删除匿名用户和没有密码的用户
+DELETE FROM user WHERE user = "" OR password = "";
+
+# 重新创建一个具有root权限的用户（root）和密码（root）
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY 'root';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'root';
+FLUSH PRIVILEGES;
+</code>
+
+
+
+----
+
+
+= 安装 mysql server (mysql 5.1.58) =
+
+
+
+----
+
+
+= 安装 mysql server (mysql 5.5.15) =
+
+== 1. 准备工作 ==
+  * 以 root 用户身份登录
+<code language="sh">
+su root
+</code>
+  * 创建运行 mysql server 的用户
+<code language="sh">
+groupadd mysql
+
+# 注意必须禁止该用户使用远程登录
+useradd -M -r -s /sbin/nologin -g mysql mysql
+</code>
+  * 创建以下目录
+<code language="sh">
+mkdir -p /root/software
+</code>
+
+== 2. 下载 ==
+<code language="sh">
+cd /root/software
+
+# 下载 mysql 源代码
+wget http://popsrc.googlecode.com/files/mysql-5.5.15.tar.gz
+
+# 下载编译安装 mysql 源代码所需软件
+wget http://popsrc.googlecode.com/files/cmake-2.8.5.tar.gz
+</code>
+
+== 3. 安装 ==
+  * 安装 cmake
+<code language="sh">
+cd /root/software
+tar zxvf cmake-2.8.5.tar.gz
+cd cmake-2.8.5
+./bootstrap
+make && make install
+</code>
+  * 安装 mysql
+<code language="sh">
+cd /root/software
+tar zxvf mysql-5.5.15.tar.gz
+cd mysql-5.5.15
+cmake .
+make && make install
+</code>
+
+== 4. 初始化 mysql ==
+<code language="sh">
+chown -R mysql:mysql /usr/local/mysql
+/usr/local/mysql/scripts/mysql_install_db --user=mysql
+chown -R root /usr/local/mysql
+chown -R mysql /usr/local/mysql/data
+</code>
+
+== 5. mysql 配置文件 ==
+<code language="sh">
+cp /usr/local/mysql/support-files/my-medium.cnf /etc/my.cnf
+
+# 用 vi 打开 /etc/my.cnf, 修改 [mysqld] 下面的 max_allowed_packet
+# max_allowed_packet = 32M
+</code>
+
+== 6. 设置 mysql server 随系统启动和关闭 ==
+<code language="sh">
+cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysql.server
+ln -s /etc/init.d/mysql.server /etc/rc3.d/S99mysql
+ln -s /etc/init.d/mysql.server /etc/rc0.d/K01mysql
+</code>
+
+== 7. 手工启动 mysql ==
+<code language="sh">
+/usr/local/mysql/bin/mysqld_safe --user=mysql &
+</code>
+
+== 8. mysql 数据库安全设置 ==
+  * 查看 [mysql#mysql_完成安装后的安全设置]
+
+== 9. mysql 的卸载 ==
+
+
+== 10. 参考文档 ==
+  * http://dev.mysql.com/doc/refman/5.5/en/installing-source-distribution.html
+  * http://dev.mysql.com/doc/refman/5.5/en/default-privileges.html
+  * http://blog.s135.com/nginx_php_v6/
+  * http://pengranxiang.iteye.com/blog/1138059
+
+
+
+----
+
+
+
+= 安装多个 mysql server (mysql 5.5.15) =
+
+
