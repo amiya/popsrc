@@ -25,6 +25,7 @@
   * [mysql#how_to_install_mysql_server_5.5.15 how to install mysql server 5.5.15]
   * [mysql#how_to_install_multi_mysql_server_5.5.15 how to install multi mysql server 5.5.15]
   * [mysql#how_to_uninstall_mysql_server how to uninstall mysql server]
+  * [mysql#available_options_for_configuring_mysql available options for configuring mysql]
 
 = 参考文档 =
   *  Installing MySQL from a Standard Source Distribution
@@ -269,6 +270,10 @@ cp /usr/local/mysql/support-files/my-medium.cnf /etc/my.cnf
 = available options for configuring mysql =
 
 == 参考文档 ==
+  * MySQL Source-Configuration Options (MySQL 5.1)
+    * http://dev.mysql.com/doc/refman/5.1/en/source-configuration-options.html
+  * MySQL Source-Configuration Options (MySQL 5.5)
+    * http://dev.mysql.com/doc/refman/5.5/en/source-configuration-options.html
   * Autotools to CMake Transition Guide
     * http://forge.mysql.com/wiki/Autotools_to_CMake_Transition_Guide
 
@@ -278,6 +283,13 @@ cp /usr/local/mysql/support-files/my-medium.cnf /etc/my.cnf
 make clean
 rm config.cache
 }}}
+  * 常用编译命令
+{{{
+./configure \
+    --prefix=/usr/local/mysql \
+    --with-tcp-port=3306 \
+    --with-unix-socket-path=/tmp/mysql3306.sock
+}}}
 
 ==  configure mysql 5.5.15 ==
   * 当需要重新编译时需要执行以下 shell 命令
@@ -285,20 +297,13 @@ rm config.cache
 make clean
 rm CMakeCache.txt
 }}}
-
-== Installation Layout Options ==
-|| *Parameter* ||  *configure Option* ||  *CMake Option* ||  *CMake Notes* ||
-|| Installation base directory ||  --prefix=/usr ||  -DCMAKE_INSTALL_PREFIX=/usr ||
-|| mysqld directory ||  --libexecdir=/usr/sbin ||  -DINSTALL_SBINDIR=sbin ||  interpreted relative to prefix ||
-|| Data directory ||  --localstatedir=/var/lib/mysql ||  -DMYSQL_DATADIR=/var/lib/mysql ||
-|| Config directory (for my.cnf) ||  --sysconfdir=/etc/mysql ||  -DSYSCONFDIR=/etc/mysql ||
-|| Plugin directory ||  --with-plugindir=/usr/lib64/mysql/plugin ||  -DINSTALL_PLUGINDIR=lib64/mysql/plugin ||  interpreted relative to prefix ||
-|| Man page directory ||  --mandir=/usr/share/man ||  -DINSTALL_MANDIR=share/man ||  interpreted relative to prefix ||
-|| Shared-data directory ||  --sharedstatedir=/usr/share/mysql ||  -DINSTALL_SHAREDIR=share ||  this is where aclocal/mysql.m4 should be installed ||
-|| Library installation directory ||  --libdir=/usr/lib64/mysql ||  -DINSTALL_LIBDIR=lib64/mysql ||  interpreted relative to prefix ||
-|| Header installation directory ||  --includedir=/usr/include/mysql ||  -DINSTALL_INCLUDEDIR=include/mysql ||  interpreted relative to prefix ||
-|| Info doc directory ||  --infodir=/usr/share/info ||  -DINSTALL_INFODIR=share/info ||  interpreted relative to prefix ||
-
+  * 常用编译命令
+{{{
+cmake . \
+    -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
+    -DMYSQL_TCP_PORT=3306 \
+    -DMYSQL_UNIX_ADDR=/tmp/mysql3306.sock
+}}}
 
 ----
 
