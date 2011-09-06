@@ -50,7 +50,7 @@
   * 备份数据
 
 == edit user password ==
-  * 先登录 mysql server [mysql#login]
+  * [mysql#login 登录 mysql server]
   * 执行以下 SQL 语句来修改指定用户密码
 {{{
 # 修改用户 bob 的密码为 newpass
@@ -71,7 +71,7 @@ ln -s /etc/init.d/mysql.server /etc/rc0.d/K01mysql
 
 == security ==
   * 安装好 mysql 后需要先做好安全工作
-  * 先登录 mysql server [mysql#login] (备注：root 用户初始密码为空)
+  * [mysql#login 登录 mysql server] (备注：root 用户初始密码为空)
   * 执行以下 SQL 语句
 {{{
 # 列出当前已有用户
