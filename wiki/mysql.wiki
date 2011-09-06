@@ -27,16 +27,18 @@
   * [mysql#how_to_uninstall_mysql_server how to uninstall mysql server]
 
 = 参考文档 =
+  *  Installing MySQL from a Standard Source Distribution
+    * http://dev.mysql.com/doc/refman/5.5/en/installing-source-distribution.html
+  * Securing the Initial MySQL Accounts
+    * http://dev.mysql.com/doc/refman/5.5/en/default-privileges.html
   * Using Option Files (MySQL 配置文件说明)
     * http://dev.mysql.com/doc/refman/5.5/en/option-files.html
   *  Running Multiple MySQL Instances on One Machine
     * http://dev.mysql.com/doc/refman/5.5/en/multiple-servers.html
   * Running Multiple MySQL Instances on Unix
     * http://dev.mysql.com/doc/refman/5.5/en/multiple-unix-servers.html
-  * http://dev.mysql.com/doc/refman/5.5/en/installing-source-distribution.html
-  * http://dev.mysql.com/doc/refman/5.5/en/default-privileges.html
-  * http://blog.s135.com/nginx_php_v6/
-  * http://pengranxiang.iteye.com/blog/1138059
+  * Nginx 0.8.x + PHP 5.2.13（FastCGI）搭建胜过Apache十倍的Web服务器（第6版）
+    * http://blog.s135.com/nginx_php_v6/
 
 
 
