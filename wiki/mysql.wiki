@@ -8,7 +8,9 @@
     * [mysql#stop 手工停止 mysql server]
     * [mysql#login 登录 mysql server]
     * [mysql#backup 备份数据]
+    * [mysql#show_databases 显示全部数据库]
     * [mysql#create_database 创建新数据库]
+    * [mysql#drop_database 删除数据库]
     * [mysql#create_user 创建新用户]
     * [mysql#grant_user_database 赋予用户操作指定数据库的权限]
     * [mysql#delete_user 删除用户]
@@ -55,13 +57,29 @@
 == backup ==
   * 备份数据
 
+== show databases ==
+  * [mysql#login 登录 mysql server]
+  * 执行以下 SQL 语句来显示全部数据库
+{{{
+SHOW DATABASES;
+}}}
+
 == create database ==
   * [mysql#login 登录 mysql server]
   * 执行以下 SQL 语句来创建新数据库
 {{{
 # 创建新数据库 web_db, 使用 utf8 字符集
-CREATE DATABASE `web_db` CHARACTER SET utf8 ;
+CREATE DATABASE `web_db` CHARACTER SET utf8;
 }}}
+
+== drop database ==
+  * [mysql#login 登录 mysql server]
+  * 执行以下 SQL 语句来删除数据库
+{{{
+# 删除数据库 web_db (特别注意：该操作会删除该数据库下的全部数据)
+DROP DATABASE `web_db`;
+}}}
+
 
 == create user ==
   * [mysql#login 登录 mysql server]
