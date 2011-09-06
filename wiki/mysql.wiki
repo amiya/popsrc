@@ -119,7 +119,7 @@ ln -s /etc/init.d/mysql.server /etc/rc0.d/K01mysql
 </code>
 
 == 8. mysql 数据库安全设置 ==
-  * 查看 [mysql#mysql_完成安装后的安全设置]
+  * 查看 [#mysql_完成安装后的安全设置]
 
 == 9. mysql 的卸载 ==
 
