@@ -8,6 +8,7 @@
     * [mysql#stop 手工停止 mysql server]
     * [mysql#login 登录 mysql server]
     * [mysql#backup 备份数据]
+    * [mysql#create_database 创建新数据库]
     * [mysql#create_user 创建新用户]
     * [mysql#drop_user 删除用户]
     * [mysql#edit_user_password 修改指定用户密码]
@@ -53,6 +54,14 @@
 == backup ==
   * 备份数据
 
+== create database ==
+  * [mysql#login 登录 mysql server]
+  * 执行以下 SQL 语句来创建新数据库
+{{{
+# 创建新数据库 web_db, 使用 utf8 字符集
+CREATE DATABASE `web_db` CHARACTER SET utf8 ;
+}}}
+
 == create user ==
   * [mysql#login 登录 mysql server]
   * 执行以下 SQL 语句来创建新用户
@@ -72,6 +81,14 @@ FLUSH PRIVILEGES;
   * 备注
     * 删除用户也可以使用 DROP USER `[username]`，但需要指定 hostname
     * 详见 http://dev.mysql.com/doc/refman/5.5/en/drop-user.html
+
+== grant user database ==
+  * [mysql#login 登录 mysql server]
+  * 执行以下 SQL 语句来允许用户访问指定的数据库
+{{{
+# 赋予用户 tom 通过 localhost 操作数据库 web_db (全部权限)
+GRANT ALL ON web_db.* TO 'tom'@'localhost';
+}}}
 
 == edit user password ==
   * [mysql#login 登录 mysql server]
