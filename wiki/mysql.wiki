@@ -9,7 +9,8 @@
     * [mysql#login 登录 mysql server]
     * [mysql#edit_user_password 修改指定用户密码]
     * [mysql#start_with_os 设置 mysql server 随系统启动和关闭]
-    * [mysql#security 安装好 mysql 后需要先做好安全工作]
+    * [mysql#security mysql 数据库安全设置]
+    * [mysql#uninstall 卸载 mysql server]
   * [mysql#how_to_install_mysql_server_5.1.58 how to install mysql server 5.1.58]
   * [mysql#how_to_install_mysql_server_5.5.15 how to install mysql server 5.5.15]
   * [mysql#how_to_install_multi_mysql_server_5.5.15 how to install multi mysql server 5.5.15]
@@ -169,17 +170,13 @@ cp /usr/local/mysql/support-files/my-medium.cnf /etc/my.cnf
 # max_allowed_packet = 32M
 }}}
 
-== 6. 设置 mysql server 随系统启动和关闭 ==
-  * 查看 [mysql#start_with_os]
+== 6. [mysql#start_with_os 设置 mysql server 随系统启动和关闭] ==
 
-== 7. 手工启动 mysql ==
-  * 查看 [mysql#start]
+== 7. [mysql#start 手工启动 mysql] ==
 
-== 8. mysql 数据库安全设置 ==
-  * 查看 [mysql#security]
+== 8. [mysql#security mysql 数据库安全设置] ==
 
-== 9. mysql 的卸载 ==
-  * 查看 [mysql#uninstall]
+== 9. [mysql#uninstall 卸载 mysql server] ==
 
 
 
