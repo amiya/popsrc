@@ -8,6 +8,7 @@
     * [mysql#stop 手工停止 mysql server]
     * [mysql#login 登录 mysql server]
     * [mysql#backup 备份数据]
+    * [mysql#create_user 创建新用户]
     * [mysql#edit_user_password 修改指定用户密码]
     * [mysql#start_with_os 设置 mysql server 随系统启动和关闭]
     * [mysql#security mysql 数据库安全设置]
@@ -50,6 +51,14 @@
 
 == backup ==
   * 备份数据
+
+== create user ==
+  * [mysql#login 登录 mysql server]
+  * 执行以下 SQL 语句来创建新用户
+{{{
+# 创建新用户 jeffrey, 密码是 mypass, 只允许通过 localhost 连接 mysql server (如果希望允许远程登录, 则将 localhost 改为 %)
+CREATE USER 'jeffrey'@'localhost' IDENTIFIED BY 'mypass';
+}}}
 
 == edit user password ==
   * [mysql#login 登录 mysql server]
