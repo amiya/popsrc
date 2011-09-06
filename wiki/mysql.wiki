@@ -70,8 +70,8 @@ DELETE FROM mysql.user WHERE user = "tom";
 FLUSH PRIVILEGES;
 }}}
   * 备注
-    * 删除用户也可以使用 DROP USER [username]，但需要指定 hostname
-    * 详见 http://dev.mysql.com/doc/refman/5.0/en/drop-user.html
+    * 删除用户也可以使用 DROP USER `[username]`，但需要指定 hostname
+    * 详见 http://dev.mysql.com/doc/refman/5.5/en/drop-user.html
 
 == edit user password ==
   * [mysql#login 登录 mysql server]
