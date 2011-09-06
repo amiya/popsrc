@@ -8,7 +8,8 @@
 
 = mysql 基本操作 =
 
-== mysql 完成安装后的安全设置 ==
+== mysql security ==
+  * 安装后 mysql 后需要先做好安全工作
   * 登录 mysql server (root 用户初始密码为空)
 <code language="sh">
 /usr/local/mysql/bin/mysqladmin -u root -p
@@ -119,10 +120,7 @@ ln -s /etc/init.d/mysql.server /etc/rc0.d/K01mysql
 </code>
 
 == 8. mysql 数据库安全设置 ==
-  * 查看 [mysql#mysql_完成安装后的安全设置]
-
-[WikiSyntax#Wiki-style_markup]
-[mysql#mysql_完成安装后的安全设置]
+  * 查看 [mysql#mysql_security]
 
 == 9. mysql 的卸载 ==
 
