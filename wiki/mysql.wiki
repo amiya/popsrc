@@ -1,6 +1,7 @@
 
 = 特别注意 =
-以下操作仅在 CentOS 5.5 测试通过，未在其它操作系统测试。
+  * 以下操作仅在 CentOS 5.5 测试通过，未在其它操作系统测试。
+  * mysql 通过源代码编译安装在默认的路径下 /usr/local/mysql
 
 = 快速链接 =
   * [mysql#MySQL_Basic_Operation MySQL Basic Operation]
