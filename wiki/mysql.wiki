@@ -10,7 +10,8 @@
     * [mysql#backup 备份数据]
     * [mysql#create_database 创建新数据库]
     * [mysql#create_user 创建新用户]
-    * [mysql#drop_user 删除用户]
+    * [mysql#grant_user_database 赋予用户操作指定数据库的权限]
+    * [mysql#delete_user 删除用户]
     * [mysql#edit_user_password 修改指定用户密码]
     * [mysql#start_with_os 设置 mysql server 随系统启动和关闭]
     * [mysql#security mysql 数据库安全设置]
@@ -70,7 +71,7 @@ CREATE DATABASE `web_db` CHARACTER SET utf8 ;
 CREATE USER 'tom'@'localhost' IDENTIFIED BY 'mypass';
 }}}
 
-== drop user ==
+== delete user ==
   * [mysql#login 登录 mysql server]
   * 执行以下 SQL 语句来删除用户
 {{{
