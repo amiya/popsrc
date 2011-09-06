@@ -45,7 +45,7 @@
  * 登录 mysql server
 {{{
 # 以 root 用户登录 (接下来将提示输入密码)
-/usr/local/mysql/bin/mysqladmin -u root -p
+/usr/local/mysql/bin/mysql -u root -p
 }}}
 
 
