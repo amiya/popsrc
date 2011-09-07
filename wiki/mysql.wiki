@@ -1,7 +1,7 @@
 
 = 特别注意 =
   * 本文档是关于在 CentOS 5.5 下安装 MySQL 的方法, 未在其它操作系统测试。
-  * MySQL 通过源代码编译安装在默认的路径下 /usr/local/mysql
+  * MySQL 通过源代码编译安装在 /usr/local/mysql
   * MySQL 配置文件路径是 /etc/my.cnf
   * 运行 mysql server 的系统用户是 mysql
 
@@ -77,7 +77,7 @@
   * 先进入 mysqladmin 所在目录
 {{{
   cd /usr/local/mysql/bin/
-}}
+}}}
   * 备份全部数据库
 {{{
 	./mysqladmin --all-databases
