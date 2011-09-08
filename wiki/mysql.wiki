@@ -1,10 +1,8 @@
-abc
-
 = 特别注意 =
-  * 本文档是关于在 CentOS 5.5 下安装 MySQL 的方法, 未在其它操作系统测试。
-  * MySQL 通过源代码编译安装在 /usr/local/mysql
-  * MySQL 配置文件路径是 /etc/my.cnf
-  * 运行 mysql server 的系统用户是 mysql
+  * 本文档是关于在 CentOS 5.5 下通过源代码安装 MySQL 的方法, 未在其它操作系统测试。
+  * MySQL 将通过源代码编译安装在 /usr/local/mysql
+  * MySQL 配置文件路径将放在 /etc/my.cnf
+  * 将以系统用户 mysql 身份运行 MySQL Server
 
 = 快速链接 =
   * [mysql#MySQL_Basic_Operation MySQL Basic Operation]
