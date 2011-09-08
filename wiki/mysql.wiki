@@ -1,4 +1,5 @@
 
+
 = 特别注意 =
   * 本文档是关于在 CentOS 5.5 下通过源代码安装 MySQL 的方法, 未在其它操作系统测试。
   * MySQL 将通过源代码编译安装在 /usr/local/mysql
@@ -158,7 +159,7 @@ SELECT user, host, password FROM mysql.user;
 DELETE FROM mysql.user WHERE user = "" OR password = "";
 
 /* 去掉默认允许的全部用户对 test 前缀的数据库的访问权限 */
-DELETE FROM mysql.db WHERE Db LIKE 'test%';
+DELETE FROM mysql.db WHERE Db LIKE 'test%' AND user = "";
 
 /* 重新创建一个具有root权限的用户（root）和密码（12345678） */
 GRANT ALL ON *.* TO 'root'@'localhost' IDENTIFIED BY '12345678';
