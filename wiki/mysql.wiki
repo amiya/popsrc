@@ -178,29 +178,17 @@ FLUSH PRIVILEGES;
 = how to backup mysql database =
   * 常用备份方法
 {{{
-# 备份指定数据库的表结构和数据
-/usr/local/mysql/bin/mysqldump --databases website_db --no-create-db --skip-add-drop-table > /tmp/website_db.sql
+# 导出指定数据库的表结构和数据
+/usr/local/mysql/bin/mysqldump --skip-add-drop-table website_db > /tmp/website_db.sql
 
-# 备份指定数据库的表结构
-/usr/local/mysql/bin/mysqldump --databases website_db --no-create-db --skip-add-drop-table --no-data > /tmp/website_db.sql
+# 导出指定数据库的表结构
+/usr/local/mysql/bin/mysqldump --skip-add-drop-table --no-data website_db > /tmp/website_db.sql
 
-# 备份指定数据库的数据
-/usr/local/mysql/bin/mysqldump --databases website_db --no-create-db --no-create-info > /tmp/website_db.sql
+# 导出指定数据库的数据
+/usr/local/mysql/bin/mysqldump --no-create-info website_db > /tmp/website_db.sql
 
-
-# 备份指定数据库中一个或多个数据表的表结构和数据
-/usr/local/mysql/bin/mysqldump --databases website_db --tables users admins --no-create-db  > /tmp/website_db.sql
-}}}
-  * 其它备份方法
-{{{
-# 备份全部数据库到文件中
-/usr/local/mysql/bin/mysqldump --all-databases > /tmp/all-db.sql
-
-# 备份多个数据库到文件中
-/usr/local/mysql/bin/mysqldump --databases website_db cms_db bbs_db > /tmp/multi-db.sql
-
-# 备份指定数据库到文件中
-/usr/local/mysql/bin/mysqldump --databases website_db > /tmp/website_db.sql
+# 导出一个或多个数据表的表结构和数据 (从数据库 website_db 中导出 tbl_user 表和 tbl_admin 表)
+/usr/local/mysql/bin/mysqldump --skip-add-drop-table website_db tbl_user tbl_admin > /tmp/multi-tables.sql
 }}}
   * 参考文档
     * mysqldump — A Database Backup Program
