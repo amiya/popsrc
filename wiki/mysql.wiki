@@ -1,5 +1,4 @@
 
-
 = 特别注意 =
   * 本文档是关于在 CentOS 5.5 下通过源代码安装 MySQL 的方法, 未在其它操作系统测试。
   * MySQL 将通过源代码编译安装在 /usr/local/mysql
@@ -40,12 +39,6 @@
     * http://dev.mysql.com/doc/refman/5.5/en/multiple-servers.html
   * Running Multiple MySQL Instances on Unix
     * http://dev.mysql.com/doc/refman/5.5/en/multiple-unix-servers.html
-  * mysql — The MySQL Command-Line Tool
-    * http://dev.mysql.com/doc/refman/5.5/en/mysql.html
-  * mysqladmin — Client for Administering a MySQL Server
-    * http://dev.mysql.com/doc/refman/5.5/en/mysqladmin.html
-  * mysqldump — A Database Backup Program
-    * http://dev.mysql.com/doc/refman/5.5/en/mysqldump.html
   * Nginx 0.8.x + PHP 5.2.13（FastCGI）搭建胜过Apache十倍的Web服务器（第6版）
     * http://blog.s135.com/nginx_php_v6/
 
@@ -60,6 +53,9 @@
 {{{
 /usr/local/mysql/bin/mysqld_safe --user=mysql &
 }}}
+  * 参考文档
+    * mysqladmin — Client for Administering a MySQL Server
+      * http://dev.mysql.com/doc/refman/5.5/en/mysqladmin.html
 
 == stop ==
   * 手工停止 mysql
