@@ -147,7 +147,7 @@ ln -s /etc/init.d/mysql.server /etc/rc0.d/K01mysql
 }}}
 
 == security ==
-  * 安装好 mysql 后需要先做好安全工作
+  * 首次安装好 mysql 后需要先做好安全工作
   * [mysql#login 登录 mysql server] (备注：root 用户初始密码为空)
   * 执行以下 SQL 语句
 {{{
