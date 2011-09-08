@@ -176,7 +176,7 @@ FLUSH PRIVILEGES;
 ----
 
 = how to backup mysql database =
-  * 常用备份方法
+  * 常用导出数据方法
 {{{
 # 导出指定数据库的表结构和数据
 /usr/local/mysql/bin/mysqldump --skip-add-drop-table website_db > /tmp/website_db.sql
@@ -353,7 +353,7 @@ cmake . \
 
 = how to uninstall mysql server =
 
-== 1. [mysql#backup 先备份数据] ==
+== 1. [mysql#how_to_backup_mysql_database 先备份数据] ==
 == 2. [mysql#stop 停止 mysql server] ==
 == 3. 执行以下 shell 命令来卸载 mysql server ==
 {{{
