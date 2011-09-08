@@ -63,7 +63,7 @@
 == stop ==
   * 手工停止 mysql
 {{{
-/usr/local/mysql/bin/mysqladmin shutdown
+/usr/local/mysql/bin/mysqladmin -u root -p shutdown
 }}}
 
 == login ==
@@ -179,16 +179,16 @@ FLUSH PRIVILEGES;
   * 常用导出数据方法
 {{{
 # 导出指定数据库的表结构和数据
-/usr/local/mysql/bin/mysqldump --skip-add-drop-table website_db > /tmp/website_db.sql
+/usr/local/mysql/bin/mysqldump -u root -p --skip-add-drop-table website_db > /tmp/website_db.sql
 
 # 导出指定数据库的表结构
-/usr/local/mysql/bin/mysqldump --skip-add-drop-table --no-data website_db > /tmp/website_db.sql
+/usr/local/mysql/bin/mysqldump -u root -p --skip-add-drop-table --no-data website_db > /tmp/website_db.sql
 
 # 导出指定数据库的数据
-/usr/local/mysql/bin/mysqldump --no-create-info website_db > /tmp/website_db.sql
+/usr/local/mysql/bin/mysqldump -u root -p --no-create-info website_db > /tmp/website_db.sql
 
 # 导出一个或多个数据表的表结构和数据 (从数据库 website_db 中导出 tbl_user 表和 tbl_admin 表)
-/usr/local/mysql/bin/mysqldump --skip-add-drop-table website_db tbl_user tbl_admin > /tmp/multi-tables.sql
+/usr/local/mysql/bin/mysqldump -u root -p --skip-add-drop-table website_db tbl_user tbl_admin > /tmp/multi-tables.sql
 }}}
   * 参考文档
     * mysqldump — A Database Backup Program
@@ -201,10 +201,10 @@ FLUSH PRIVILEGES;
   * 常用导入数据方法
 {{{
 # 在 website_db 数据库中执行 /tmp/website_db.sql 文件中的 SQL 语句 (即可用于导入数据)
-/usr/local/mysql/bin/mysql website_db < /tmp/website_db.sql
+/usr/local/mysql/bin/mysql -u root -p website_db < /tmp/website_db.sql
 
 # 如果 /tmp/website_db.sql 中已经有了 SQL 语句( USE website_db; ), 则可以不用指定数据库名称
-/usr/local/mysql/bin/mysql < /tmp/website_db.sql
+/usr/local/mysql/bin/mysql -u root -p < /tmp/website_db.sql
 }}}
   * 参考文档
     * Executing SQL Statements from a Text File
