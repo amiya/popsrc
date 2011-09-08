@@ -1,5 +1,4 @@
 
-
 = 特别注意 =
   * 本文档是关于在 CentOS 5.5 下通过源代码安装 MySQL 的方法, 未在其它操作系统测试。
   * MySQL 将通过源代码编译安装在 /usr/local/mysql
@@ -22,6 +21,7 @@
     * [mysql#security mysql 数据库安全设置]
     * [mysql#reset_root_password 重置 root 用户密码]
   * [mysql#how_to_backup_mysql_database how to backup mysql database]
+  * [mysql#how_to_import_data_to_mysql_database how to import data to mysql database]
   * [mysql#how_to_install_mysql_server_5.1.58 how to install mysql server 5.1.58]
   * [mysql#how_to_install_mysql_server_5.5.15 how to install mysql server 5.5.15]
   * [mysql#how_to_install_multi_mysql_server_5.5.15 how to install multi mysql server 5.5.15]
@@ -197,14 +197,32 @@ FLUSH PRIVILEGES;
 /usr/local/mysql/bin/mysqldump --all-databases > /tmp/all-db.sql
 
 # 备份多个数据库到文件中
-/usr/local/mysql/bin/mysqldump --databases website cms bbs > /tmp/multi-db.sql
+/usr/local/mysql/bin/mysqldump --databases website_db cms_db bbs_db > /tmp/multi-db.sql
 
 # 备份指定数据库到文件中
-/usr/local/mysql/bin/mysqldump --databases website > /tmp/website-db.sql
+/usr/local/mysql/bin/mysqldump --databases website_db > /tmp/website_db.sql
 }}}
   * 参考文档
     * mysqldump — A Database Backup Program
       * http://dev.mysql.com/doc/refman/5.5/en/mysqldump.html
+
+----
+
+
+= how to import data to mysql database =
+  * 常用导入数据方法
+{{{
+# 在 website_db 数据库中执行 /tmp/website_db.sql 文件中的 SQL 语句 (即可用于导入数据)
+/usr/local/mysql/bin/mysql website_db < /tmp/website_db.sql
+
+# 如果 /tmp/website_db.sql 中已经有了 SQL 语句( USE website_db; ), 则可以不用指定数据库名称
+/usr/local/mysql/bin/mysql < /tmp/website_db.sql
+}}}
+  * 参考文档
+    * Executing SQL Statements from a Text File
+      * http://dev.mysql.com/doc/refman/5.5/en/batch-commands.html
+    * mysqlimport — A Data Import Program
+      * http://dev.mysql.com/doc/refman/5.5/en/mysqlimport.html
 
 
 ----
