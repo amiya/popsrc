@@ -161,8 +161,8 @@ DELETE FROM mysql.user WHERE user = "" OR password = "";
 DELETE FROM mysql.db WHERE Db LIKE 'test%';
 
 /* 重新创建一个具有root权限的用户（root）和密码（12345678） */
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY '12345678';
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'127.0.0.1' IDENTIFIED BY '12345678';
+GRANT ALL ON *.* TO 'root'@'localhost' IDENTIFIED BY '12345678';
+GRANT ALL ON *.* TO 'root'@'127.0.0.1' IDENTIFIED BY '12345678';
 
 /* 令以上操作立即生效 */
 FLUSH PRIVILEGES;
