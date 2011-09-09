@@ -12,6 +12,7 @@
     * [mysql#login 登录 mysql server]
     * [mysql#start_with_os 设置 mysql server 随系统启动和关闭]
     * [mysql#reset_root_password 重置 root 用户密码]
+    * [mysql#Securing_the_Initial_MySQL_Accounts Securing the Initial MySQL Accounts]
   * [mysql#MySQL_Database_Management MySQL Database Management]
     * [mysql#SHOW_DATABASES SHOW DATABASES]
     * [mysql#CREATE_DATABASE CREATE DATABASE]
@@ -20,7 +21,6 @@
     * [mysql#Delete_User Delete User]
     * [mysql#Edit_User_Password Edit User Password]
     * [mysql#Grant_User_Database Grant User Database]
-    * [mysql#Securing_the_Initial_MySQL_Accounts Securing the Initial MySQL Accounts]
   * [mysql#how_to_backup_mysql_database how to backup mysql database]
   * [mysql#how_to_import_data_to_mysql_database how to import data to mysql database]
   * [mysql#how_to_install_mysql_server_5.1.58 how to install mysql server 5.1.58]
@@ -81,6 +81,31 @@ ln -s /etc/init.d/mysql.server /etc/rc0.d/K01mysql
   * 如果忘记 root 用户密码可以通过以下方式来重置密码
     * 详见 http://dev.mysql.com/doc/refman/5.5/en/resetting-permissions.html#resetting-permissions-unix
 
+
+== Securing the Initial MySQL Accounts ==
+  * 首次安装好 mysql 后需要先做好安全工作
+  * [mysql#login 登录 mysql server] (备注：root 用户初始密码为空)
+  * 执行以下 SQL 语句
+{{{
+/* 列出当前已有用户 */
+SELECT user, host, password FROM mysql.user;
+
+/* 删除匿名用户和没有密码的用户 */
+DELETE FROM mysql.user WHERE user = "" OR password = "";
+
+/* 去掉默认允许的全部用户对 test 前缀的数据库的访问权限 */
+DELETE FROM mysql.db WHERE Db LIKE 'test%' AND user = "";
+
+/* 重新创建一个具有root权限的用户（root）和密码（12345678） */
+GRANT ALL ON *.* TO 'root'@'localhost' IDENTIFIED BY '12345678';
+GRANT ALL ON *.* TO 'root'@'127.0.0.1' IDENTIFIED BY '12345678';
+
+/* 令以上操作立即生效 */
+FLUSH PRIVILEGES;
+}}}
+  * 详见 Securing the Initial MySQL Accounts
+      * http://dev.mysql.com/doc/refman/5.5/en/default-privileges.html
+
 ----
 
 = MySQL Database Management =
@@ -137,31 +162,6 @@ FLUSH PRIVILEGES;
 /* 赋予用户 tom 通过 localhost 操作数据库 website_db (全部权限) */
 GRANT ALL ON website_db.* TO 'tom'@'localhost';
 }}}
-
-== Securing the Initial MySQL Accounts ==
-  * 首次安装好 mysql 后需要先做好安全工作
-  * [mysql#login 登录 mysql server] (备注：root 用户初始密码为空)
-  * 执行以下 SQL 语句
-{{{
-/* 列出当前已有用户 */
-SELECT user, host, password FROM mysql.user;
-
-/* 删除匿名用户和没有密码的用户 */
-DELETE FROM mysql.user WHERE user = "" OR password = "";
-
-/* 去掉默认允许的全部用户对 test 前缀的数据库的访问权限 */
-DELETE FROM mysql.db WHERE Db LIKE 'test%' AND user = "";
-
-/* 重新创建一个具有root权限的用户（root）和密码（12345678） */
-GRANT ALL ON *.* TO 'root'@'localhost' IDENTIFIED BY '12345678';
-GRANT ALL ON *.* TO 'root'@'127.0.0.1' IDENTIFIED BY '12345678';
-
-/* 令以上操作立即生效 */
-FLUSH PRIVILEGES;
-}}}
-  * 详见 Securing the Initial MySQL Accounts
-      * http://dev.mysql.com/doc/refman/5.5/en/default-privileges.html
-
 
 ----
 
