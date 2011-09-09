@@ -17,9 +17,9 @@
     * [mysql#CREATE_DATABASE CREATE DATABASE]
     * [mysql#DROP_DATABASE DROP DATABASE]
     * [mysql#CREATE_USER CREATE USER]
-    * [mysql#DELETE_USER DELETE USER]
-    * [mysql#EDIT_USER_PASSWORD EDIT USER PASSWORD]
-    * [mysql#GRANT_USER_DATABASE GRANT USER DATABASE]
+    * [mysql#Delete_User Delete User]
+    * [mysql#Edit_User_Password Edit User Password]
+    * [mysql#Grant_User_Database Grant User Database]
     * [mysql#Securing_the_Initial_MySQL_Accounts Securing the Initial MySQL Accounts]
   * [mysql#how_to_backup_mysql_database how to backup mysql database]
   * [mysql#how_to_import_data_to_mysql_database how to import data to mysql database]
@@ -112,7 +112,7 @@ DROP DATABASE `website_db`;
 CREATE USER 'tom'@'localhost' IDENTIFIED BY 'mypass';
 }}}
 
-== DELETE USER ==
+== Delete User ==
 {{{
 /* 删除用户 tom */
 DELETE FROM mysql.user WHERE user = "tom";
@@ -122,7 +122,7 @@ FLUSH PRIVILEGES;
     * 删除用户也可以使用 DROP USER `[username]`，但需要指定 hostname
     * 详见 http://dev.mysql.com/doc/refman/5.5/en/drop-user.html
 
-== EDIT USER PASSWORD ==
+== Edit User Password ==
 {{{
 /* 修改用户 bob 的密码为 newpass */
 UPDATE mysql.user SET Password=PASSWORD('newpass') WHERE User='bob';
@@ -132,7 +132,7 @@ FLUSH PRIVILEGES;
     * 修改用户密码不要使用 SET PASSWORD, 因为这个命令可能会被记录到 server log 或  ~/.mysql_history 文件中，从而导致密码泄露
     * 详见 http://dev.mysql.com/doc/refman/5.5/en/set-password.html
 
-== GRANT USER DATABASE ==
+== Grant User Database ==
 {{{
 /* 赋予用户 tom 通过 localhost 操作数据库 website_db (全部权限) */
 GRANT ALL ON website_db.* TO 'tom'@'localhost';
