@@ -166,7 +166,6 @@ FLUSH PRIVILEGES;
 ----
 
 = how to backup mysql database =
-  * 常用导出数据方法
 {{{
 # 导出指定数据库的表结构和数据
 /usr/local/mysql/bin/mysqldump -u root -p --skip-add-drop-table website_db > /tmp/website_db.sql
@@ -188,7 +187,6 @@ FLUSH PRIVILEGES;
 
 
 = how to import data to mysql database =
-  * 常用导入数据方法
 {{{
 # 在 website_db 数据库中执行 /tmp/website_db.sql 文件中的 SQL 语句 (即可用于导入数据)
 /usr/local/mysql/bin/mysql -u root -p website_db < /tmp/website_db.sql
