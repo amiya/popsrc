@@ -13,14 +13,14 @@
     * [mysql#start_with_os 设置 mysql server 随系统启动和关闭]
     * [mysql#reset_root_password 重置 root 用户密码]
   * [mysql#MySQL_Database_Management MySQL Database Management]
-    * [mysql#show_databases 显示全部数据库]
-    * [mysql#create_database 创建新数据库]
-    * [mysql#drop_database 删除数据库]
-    * [mysql#create_user 创建新用户]
-    * [mysql#grant_user_database 赋予用户操作指定数据库的权限]
-    * [mysql#delete_user 删除用户]
-    * [mysql#edit_user_password 修改指定用户密码]
-    * [mysql#securing_the_initial_mysql_accounts securing the initial mysql accounts]
+    * [mysql#SHOW_DATABASES SHOW DATABASES]
+    * [mysql#CREATE_DATABASE CREATE DATABASE]
+    * [mysql#DROP_DATABASE DROP DATABASE]
+    * [mysql#CREATE_USER CREATE USER]
+    * [mysql#DELETE_USER DELETE USER]
+    * [mysql#EDIT_USER_PASSWORD EDIT USER PASSWORD]
+    * [mysql#GRANT_USER_DATABASE GRANT USER DATABASE]
+    * [mysql#Securing_the_Initial_MySQL_Accounts Securing the Initial MySQL Accounts]
   * [mysql#how_to_backup_mysql_database how to backup mysql database]
   * [mysql#how_to_import_data_to_mysql_database how to import data to mysql database]
   * [mysql#how_to_install_mysql_server_5.1.58 how to install mysql server 5.1.58]
@@ -51,16 +51,16 @@
 /usr/local/mysql/bin/mysqld_safe --user=mysql &
 }}}
 
-* 详见 mysqld_safe — MySQL Server Startup Script
-  * http://dev.mysql.com/doc/refman/5.5/en/mysqld-safe.html
+  * 详见 mysqld_safe — MySQL Server Startup Script
+    * http://dev.mysql.com/doc/refman/5.5/en/mysqld-safe.html
 
 == stop ==
 {{{
 # 手工停止 mysql
 /usr/local/mysql/bin/mysqladmin -u root -p shutdown
 }}}
-*参考文档*
-  * mysqladmin — Client for Administering a MySQL Server
+
+  * 详见 mysqladmin — Client for Administering a MySQL Server
     * http://dev.mysql.com/doc/refman/5.5/en/mysqladmin.html
 
 == login ==
@@ -70,8 +70,8 @@
 }}}
 
 == start with os ==
-  * 设置 mysql server 随系统启动和关闭
 {{{
+# 设置 mysql server 随系统启动和关闭
 cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysql.server
 ln -s /etc/init.d/mysql.server /etc/rc3.d/S99mysql
 ln -s /etc/init.d/mysql.server /etc/rc0.d/K01mysql
@@ -85,41 +85,34 @@ ln -s /etc/init.d/mysql.server /etc/rc0.d/K01mysql
 
 = MySQL Database Management =
 
-== show databases ==
+以下操作需要先登录到 mysql server
   * [mysql#login 登录 mysql server]
-  * 执行以下 SQL 语句来显示全部数据库
+
+== SHOW DATABASES ==
 {{{
+/* 显示全部数据库 */
 SHOW DATABASES;
 }}}
 
-== create database ==
-  * [mysql#login 登录 mysql server]
-  * 执行以下 SQL 语句来创建新数据库
+== CREATE DATABASE ==
 {{{
 /* 创建新数据库 website_db, 使用 utf8 字符集 */
 CREATE DATABASE `website_db` CHARACTER SET utf8;
 }}}
 
-== drop database ==
-  * [mysql#login 登录 mysql server]
-  * 执行以下 SQL 语句来删除数据库
+== DROP DATABASE ==
 {{{
 /* 删除数据库 website_db (特别注意：该操作会删除该数据库下的全部数据) */
 DROP DATABASE `website_db`;
 }}}
 
-
-== create user ==
-  * [mysql#login 登录 mysql server]
-  * 执行以下 SQL 语句来创建新用户
+== CREATE USER ==
 {{{
 /* 创建新用户 tom, 密码是 mypass, 只允许通过 localhost 连接 mysql server (如果希望允许远程登录, 则将 localhost 改为 %) */
 CREATE USER 'tom'@'localhost' IDENTIFIED BY 'mypass';
 }}}
 
-== delete user ==
-  * [mysql#login 登录 mysql server]
-  * 执行以下 SQL 语句来删除用户
+== DELETE USER ==
 {{{
 /* 删除用户 tom */
 DELETE FROM mysql.user WHERE user = "tom";
@@ -129,17 +122,7 @@ FLUSH PRIVILEGES;
     * 删除用户也可以使用 DROP USER `[username]`，但需要指定 hostname
     * 详见 http://dev.mysql.com/doc/refman/5.5/en/drop-user.html
 
-== grant user database ==
-  * [mysql#login 登录 mysql server]
-  * 执行以下 SQL 语句来允许用户访问指定的数据库
-{{{
-/* 赋予用户 tom 通过 localhost 操作数据库 website_db (全部权限) */
-GRANT ALL ON website_db.* TO 'tom'@'localhost';
-}}}
-
-== edit user password ==
-  * [mysql#login 登录 mysql server]
-  * 执行以下 SQL 语句来修改指定用户密码
+== EDIT USER PASSWORD ==
 {{{
 /* 修改用户 bob 的密码为 newpass */
 UPDATE mysql.user SET Password=PASSWORD('newpass') WHERE User='bob';
@@ -149,8 +132,13 @@ FLUSH PRIVILEGES;
     * 修改用户密码不要使用 SET PASSWORD, 因为这个命令可能会被记录到 server log 或  ~/.mysql_history 文件中，从而导致密码泄露
     * 详见 http://dev.mysql.com/doc/refman/5.5/en/set-password.html
 
+== GRANT USER DATABASE ==
+{{{
+/* 赋予用户 tom 通过 localhost 操作数据库 website_db (全部权限) */
+GRANT ALL ON website_db.* TO 'tom'@'localhost';
+}}}
 
-== securing the initial mysql accounts ==
+== Securing the Initial MySQL Accounts ==
   * 首次安装好 mysql 后需要先做好安全工作
   * [mysql#login 登录 mysql server] (备注：root 用户初始密码为空)
   * 执行以下 SQL 语句
@@ -171,8 +159,7 @@ GRANT ALL ON *.* TO 'root'@'127.0.0.1' IDENTIFIED BY '12345678';
 /* 令以上操作立即生效 */
 FLUSH PRIVILEGES;
 }}}
-  * 参考文档
-    * Securing the Initial MySQL Accounts
+  * 详见 Securing the Initial MySQL Accounts
       * http://dev.mysql.com/doc/refman/5.5/en/default-privileges.html
 
 
