@@ -1,3 +1,4 @@
+
 = 特别注意 =
   * 本文档是关于在 CentOS 5.5 下通过源代码安装 MySQL 的方法, 未在其它操作系统测试。
   * MySQL 将通过源代码编译安装在 /usr/local/mysql
@@ -49,6 +50,7 @@
 # 手工启动 mysql
 /usr/local/mysql/bin/mysqld_safe --user=mysql &
 }}}
+
 * 详见 mysqld_safe — MySQL Server Startup Script
   * http://dev.mysql.com/doc/refman/5.5/en/mysqld-safe.html
 
