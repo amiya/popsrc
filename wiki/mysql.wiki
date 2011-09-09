@@ -243,8 +243,7 @@ useradd -M -r -s /sbin/nologin -g mysql mysql
 mkdir -p /root/software
 }}}
 
-== 2. 下载 ==
-
+下载相关软件
 {{{
 cd /root/software
 
@@ -255,7 +254,7 @@ wget http://popsrc.googlecode.com/files/mysql-5.5.15.tar.gz
 wget http://popsrc.googlecode.com/files/cmake-2.8.5.tar.gz
 }}}
 
-== 3. 安装 cmake ==
+== 2. 安装 cmake ==
 
 {{{
 cd /root/software
@@ -275,7 +274,7 @@ rm config.cache
     * install Cmake
       * http://www.cmake.org/cmake/help/install.html
 
-== 4. 安装 mysql ==
+== 3. 安装 mysql ==
 
 {{{
 cd /root/software
@@ -300,7 +299,7 @@ rm CMakeCache.txt
     * MySQL Source-Configuration Options
       * http://dev.mysql.com/doc/refman/5.5/en/source-configuration-options.html
 
-== 5. 初始化 mysql ==
+== 4. 初始化 mysql ==
 {{{
 chown -R mysql:mysql /usr/local/mysql
 /usr/local/mysql/scripts/mysql_install_db --user=mysql --force
@@ -313,7 +312,7 @@ chown -R mysql /usr/local/mysql/data
     * mysql_install_db — Initialize MySQL Data Directory
       * http://dev.mysql.com/doc/refman/5.5/en/mysql-install-db.html
 
-== 6. mysql 配置文件 ==
+== 5. mysql 配置文件 ==
 {{{
 cp /usr/local/mysql/support-files/my-medium.cnf /etc/my.cnf
 
@@ -321,13 +320,13 @@ cp /usr/local/mysql/support-files/my-medium.cnf /etc/my.cnf
 # max_allowed_packet = 32M
 }}}
 
-== 7. [mysql#Starting_and_Stopping_MySQL_Automatically Starting and Stopping MySQL Automatically] ==
+== 6. [mysql#Starting_and_Stopping_MySQL_Automatically Starting and Stopping MySQL Automatically] ==
 
-== 8. [mysql#Start_Server Start Server] ==
+== 7. [mysql#Start_Server Start Server] ==
 
-== 9. [mysql#Securing_the_Initial_MySQL_Accounts Securing the Initial MySQL Accounts] ==
+== 8. [mysql#Securing_the_Initial_MySQL_Accounts Securing the Initial MySQL Accounts] ==
 
-== 10. How to uninstall ==
+== 9. How to uninstall ==
 
   * [mysql#Backup_Data Backup Data]
   * [mysql#Stop_Server Stop Server]
