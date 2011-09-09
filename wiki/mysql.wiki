@@ -310,13 +310,29 @@ cp /usr/local/mysql/support-files/my-medium.cnf /etc/my.cnf
 # max_allowed_packet = 32M
 }}}
 
-== 7. [mysql#start_with_os 设置 mysql server 随系统启动和关闭] ==
+== 7. [mysql#Starting_and_Stopping_MySQL_Automatically Starting and Stopping MySQL Automatically] ==
 
-== 8. [mysql#start 手工启动 mysql] ==
+== 8. [mysql#Start_Server Start Server] ==
 
-== 9. [mysql#securing_the_initial_mysql_accounts securing the initial mysql accounts] ==
+== 9. [mysql#Securing_the_Initial_MySQL_Accounts Securing the Initial MySQL Accounts] ==
 
-== 10. [mysql#uninstall 卸载 mysql server] ==
+== How to uninstall ==
+
+  * [mysql#Backup_Data Backup Data]
+  * [mysql#Stop_Server Stop Server]
+  * 执行以下 shell 命令
+{{{
+# 取消随机启动设置
+rm -f /etc/rc0.d/K01mysql
+rm -f /etc/rc3.d/S99mysql
+rm -f /etc/init.d/mysql.server
+
+# 删除 mysql 的配置文件
+rm -f /etc/my.cnf
+
+# 删除 mysql 相关文件 (再次提醒一定要先备份好数据)
+rm -fr /usr/local/mysql
+}}}
 
 
 ----
@@ -355,20 +371,6 @@ rm config.cache
     --prefix=/usr/local/mysql \
     --with-tcp-port=3306 \
     --with-unix-socket-path=/tmp/mysql.sock
-}}}
-
-==  configure mysql 5.5.15 ==
-  * 当需要重新编译时需要执行以下 shell 命令
-{{{
-make clean
-rm CMakeCache.txt
-}}}
-  * 常用编译命令
-{{{
-cmake . \
-    -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
-    -DMYSQL_TCP_PORT=3306 \
-    -DMYSQL_UNIX_ADDR=/tmp/mysql.sock
 }}}
 
 ----
