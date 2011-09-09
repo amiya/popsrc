@@ -50,7 +50,8 @@
 # 手工启动 mysql
 /usr/local/mysql/bin/mysqld_safe --user=mysql &
 }}}
-  *参考文档 [http://dev.mysql.com/doc/refman/5.5/en/mysqld-safe.html mysqld_safe — MySQL Server Startup Script]*
+  * 详见 mysqld_safe — MySQL Server Startup Script
+    * http://dev.mysql.com/doc/refman/5.5/en/mysqld-safe.html
 
 == stop ==
 {{{
