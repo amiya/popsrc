@@ -205,6 +205,18 @@ GRANT ALL ON website_db.* TO 'tom'@'localhost';
 = how to install mysql server 5.1.58 =
 
 
+{{{
+make clean
+rm config.cache
+}}}
+  * 常用编译命令
+{{{
+./configure \
+    --prefix=/usr/local/mysql \
+    --with-tcp-port=3306 \
+    --with-unix-socket-path=/tmp/mysql.sock
+}}}
+
 
 ----
 
@@ -344,30 +356,3 @@ rm -fr /usr/local/mysql
 === 1. 以正常方式安装好 mysql server ===
 
 == 第二种、安装多个不同版本的 mysql server ==
-
-
-----
-
-= available options for configuring mysql =
-
-== 参考文档 ==
-  * MySQL Source-Configuration Options (MySQL 5.1)
-    * http://dev.mysql.com/doc/refman/5.1/en/source-configuration-options.html
-  * MySQL Source-Configuration Options (MySQL 5.5)
-    * http://dev.mysql.com/doc/refman/5.5/en/source-configuration-options.html
-  * Autotools to CMake Transition Guide
-    * http://forge.mysql.com/wiki/Autotools_to_CMake_Transition_Guide
-
-==  configure mysql 5.1.58 ==
-  * 当需要重新编译时需要执行以下 shell 命令
-{{{
-make clean
-rm config.cache
-}}}
-  * 常用编译命令
-{{{
-./configure \
-    --prefix=/usr/local/mysql \
-    --with-tcp-port=3306 \
-    --with-unix-socket-path=/tmp/mysql.sock
-}}}
