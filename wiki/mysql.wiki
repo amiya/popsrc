@@ -13,7 +13,7 @@
     * [mysql#start_with_os 设置 mysql server 随系统启动和关闭]
     * [mysql#reset_root_password 重置 root 用户密码]
     * [mysql#Securing_the_Initial_MySQL_Accounts Securing the Initial MySQL Accounts]
-    * [mysql#Backup_Database Backup Database]
+    * [mysql#Backup_Data Backup Data]
     * [mysql#Import_Data Import Data]
   * [mysql#MySQL_Database_Management MySQL Database Management]
     * [mysql#SHOW_DATABASES SHOW DATABASES]
@@ -106,7 +106,7 @@ FLUSH PRIVILEGES;
     * Securing the Initial MySQL Accounts
       * http://dev.mysql.com/doc/refman/5.5/en/default-privileges.html
 
-== Backup Database ==
+== Backup Data ==
 {{{
 # 导出指定数据库的表结构和数据
 /usr/local/mysql/bin/mysqldump -u root -p --skip-add-drop-table website_db > /tmp/website_db.sql
