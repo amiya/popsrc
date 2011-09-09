@@ -1,5 +1,4 @@
 
-
 = 特别注意 =
   * 本文档是关于在 CentOS 5.5 下通过源代码安装 MySQL 的方法, 未在其它操作系统测试。
   * MySQL 将通过源代码编译安装在 /usr/local/mysql
@@ -27,7 +26,6 @@
   * [mysql#how_to_install_mysql_server_5.1.58 how to install mysql server 5.1.58]
   * [mysql#how_to_install_mysql_server_5.5.15 how to install mysql server 5.5.15]
   * [mysql#how_to_install_multi_mysql_server_5.5.15 how to install multi mysql server 5.5.15]
-  * [mysql#how_to_uninstall_mysql_server how to uninstall mysql server]
 
 = 参考文档 =
   * Using Option Files (MySQL 配置文件说明)
