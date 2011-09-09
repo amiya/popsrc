@@ -86,7 +86,7 @@ ln -s /etc/init.d/mysql.server /etc/rc0.d/K01mysql
 
 == Securing the Initial MySQL Accounts ==
   * 首次安装好 mysql 后需要先做好安全工作
-  * [mysql#login 登录 mysql server] (备注：root 用户初始密码为空)
+  * [mysql#Login_Server 登录 mysql server] (备注：root 用户初始密码为空)
   * 执行以下 SQL 语句
 {{{
 /* 列出当前已有用户 */
@@ -147,7 +147,7 @@ FLUSH PRIVILEGES;
 = MySQL Database Management =
 
 以下操作需要先登录到 mysql server
-  * [mysql#login 登录 mysql server]
+  * [mysql#Login_Server 登录 mysql server]
 
 == SHOW DATABASES ==
 {{{
