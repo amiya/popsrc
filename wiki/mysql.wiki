@@ -21,13 +21,12 @@
     * [mysql#Delete_User Delete User]
     * [mysql#Edit_User_Password Edit User Password]
     * [mysql#Grant_User_Database Grant User Database]
-  * [mysql#how_to_backup_mysql_database how to backup mysql database]
-  * [mysql#how_to_import_data_to_mysql_database how to import data to mysql database]
+  * [mysql#Backup_MySQL_Database Backup MySQL Database]
+  * [mysql#Import_Data_Into_MySQL_Database Import Data Into MySQL Database]
   * [mysql#how_to_install_mysql_server_5.1.58 how to install mysql server 5.1.58]
   * [mysql#how_to_install_mysql_server_5.5.15 how to install mysql server 5.5.15]
   * [mysql#how_to_install_multi_mysql_server_5.5.15 how to install multi mysql server 5.5.15]
   * [mysql#how_to_uninstall_mysql_server how to uninstall mysql server]
-  * [mysql#available_options_for_configuring_mysql available options for configuring mysql]
 
 = 参考文档 =
   * Using Option Files (MySQL 配置文件说明)
@@ -50,18 +49,18 @@
 # 手工启动 mysql
 /usr/local/mysql/bin/mysqld_safe --user=mysql &
 }}}
-
-  * 详见 mysqld_safe — MySQL Server Startup Script
-    * http://dev.mysql.com/doc/refman/5.5/en/mysqld-safe.html
+  * 参考文档
+    * mysqld_safe — MySQL Server Startup Script
+      * http://dev.mysql.com/doc/refman/5.5/en/mysqld-safe.html
 
 == stop ==
 {{{
 # 手工停止 mysql
 /usr/local/mysql/bin/mysqladmin -u root -p shutdown
 }}}
-
-  * 详见 mysqladmin — Client for Administering a MySQL Server
-    * http://dev.mysql.com/doc/refman/5.5/en/mysqladmin.html
+  * 参考文档
+    * mysqladmin — Client for Administering a MySQL Server
+      * http://dev.mysql.com/doc/refman/5.5/en/mysqladmin.html
 
 == login ==
 {{{
@@ -103,7 +102,8 @@ GRANT ALL ON *.* TO 'root'@'127.0.0.1' IDENTIFIED BY '12345678';
 /* 令以上操作立即生效 */
 FLUSH PRIVILEGES;
 }}}
-  * 详见 Securing the Initial MySQL Accounts
+  * 参考文档
+    * Securing the Initial MySQL Accounts
       * http://dev.mysql.com/doc/refman/5.5/en/default-privileges.html
 
 ----
@@ -165,7 +165,7 @@ GRANT ALL ON website_db.* TO 'tom'@'localhost';
 
 ----
 
-= how to backup mysql database =
+= Backup MySQL Database =
 {{{
 # 导出指定数据库的表结构和数据
 /usr/local/mysql/bin/mysqldump -u root -p --skip-add-drop-table website_db > /tmp/website_db.sql
@@ -186,7 +186,7 @@ GRANT ALL ON website_db.* TO 'tom'@'localhost';
 ----
 
 
-= how to import data to mysql database =
+= Import Data Into MySQL Database =
 {{{
 # 在 website_db 数据库中执行 /tmp/website_db.sql 文件中的 SQL 语句 (即可用于导入数据)
 /usr/local/mysql/bin/mysql -u root -p website_db < /tmp/website_db.sql
@@ -261,9 +261,9 @@ make clean
 rm config.cache
 }}}
 
-*参考文档*
-  * install Cmake
-    * http://www.cmake.org/cmake/help/install.html
+  * 参考文档
+    * install Cmake
+      * http://www.cmake.org/cmake/help/install.html
 
 == 4. 安装 mysql ==
 
@@ -284,11 +284,11 @@ make clean
 rm CMakeCache.txt
 }}}
 
-*参考文档*
-  * Installing MySQL from Source
-    * http://dev.mysql.com/doc/refman/5.5/en/source-installation.html
-  * MySQL Source-Configuration Options
-    * http://dev.mysql.com/doc/refman/5.5/en/source-configuration-options.html
+  * 参考文档
+    * Installing MySQL from Source
+      * http://dev.mysql.com/doc/refman/5.5/en/source-installation.html
+    * MySQL Source-Configuration Options
+      * http://dev.mysql.com/doc/refman/5.5/en/source-configuration-options.html
 
 == 5. 初始化 mysql ==
 {{{
@@ -297,11 +297,11 @@ chown -R mysql:mysql /usr/local/mysql
 chown -R root /usr/local/mysql
 chown -R mysql /usr/local/mysql/data
 }}}
-*参考文档*
-  * Unix Postinstallation Procedures
-    * http://dev.mysql.com/doc/refman/5.5/en/unix-postinstallation.html
-  * mysql_install_db — Initialize MySQL Data Directory
-    * http://dev.mysql.com/doc/refman/5.5/en/mysql-install-db.html
+  * 参考文档
+    * Unix Postinstallation Procedures
+      * http://dev.mysql.com/doc/refman/5.5/en/unix-postinstallation.html
+    * mysql_install_db — Initialize MySQL Data Directory
+      * http://dev.mysql.com/doc/refman/5.5/en/mysql-install-db.html
 
 == 6. mysql 配置文件 ==
 {{{
