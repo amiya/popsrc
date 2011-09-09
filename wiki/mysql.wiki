@@ -7,11 +7,11 @@
 
 = 快速链接 =
   * [mysql#MySQL_Server_Management MySQL Server Management]
-    * [mysql#start 手工启动 mysql server]
-    * [mysql#stop 手工停止 mysql server]
-    * [mysql#login 登录 mysql server]
-    * [mysql#start_with_os 设置 mysql server 随系统启动和关闭]
-    * [mysql#reset_root_password 重置 root 用户密码]
+    * [mysql#Start_Server Start Server]
+    * [mysql#Stop_Server Stop Server]
+    * [mysql#Login_Server Login Server]
+    * [mysql#Starting_and_Stopping_MySQL_Automatically Starting and Stopping MySQL Automatically]
+    * [mysql#How_to_Reset_the_Root_Password How to Reset the Root Password]
     * [mysql#Securing_the_Initial_MySQL_Accounts Securing the Initial MySQL Accounts]
     * [mysql#Backup_Data Backup Data]
     * [mysql#Import_Data Import Data]
@@ -44,7 +44,7 @@
 
 = MySQL Server Management =
 
-== start ==
+== Start Server ==
 {{{
 # 手工启动 mysql
 /usr/local/mysql/bin/mysqld_safe --user=mysql &
@@ -53,7 +53,7 @@
     * mysqld_safe — MySQL Server Startup Script
       * http://dev.mysql.com/doc/refman/5.5/en/mysqld-safe.html
 
-== stop ==
+== Stop Server ==
 {{{
 # 手工停止 mysql
 /usr/local/mysql/bin/mysqladmin -u root -p shutdown
@@ -62,24 +62,27 @@
     * mysqladmin — Client for Administering a MySQL Server
       * http://dev.mysql.com/doc/refman/5.5/en/mysqladmin.html
 
-== login ==
+== Login Server ==
 {{{
 # 以 root 用户登录 mysql server (接下来将提示输入密码)
 /usr/local/mysql/bin/mysql -u root -p
 }}}
 
-== start with os ==
+== Starting and Stopping MySQL Automatically ==
 {{{
 # 设置 mysql server 随系统启动和关闭
 cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysql.server
 ln -s /etc/init.d/mysql.server /etc/rc3.d/S99mysql
 ln -s /etc/init.d/mysql.server /etc/rc0.d/K01mysql
 }}}
+  * 参考文档
+    * Starting and Stopping MySQL Automatically
+      * http://dev.mysql.com/doc/refman/5.5/en/automatic-start.html
 
-== reset root password ==
-  * 如果忘记 root 用户密码可以通过以下方式来重置密码
-    * 详见 http://dev.mysql.com/doc/refman/5.5/en/resetting-permissions.html#resetting-permissions-unix
-
+== How to Reset the Root Password ==
+  * 参考文档
+    * How to Reset the Root Password
+      * http://dev.mysql.com/doc/refman/5.5/en/resetting-permissions.html
 
 == Securing the Initial MySQL Accounts ==
   * 首次安装好 mysql 后需要先做好安全工作
