@@ -10,3 +10,5 @@ vi ~/.vimrc
 syntax on
 set number
 }}}
+
+保存后重新登录即可看到效果
