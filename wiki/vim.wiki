@@ -1,0 +1,14 @@
+
+= .vimrc = 
+
+创建 .vimrc 文件
+{{{
+vi ~/.vimrc
+}}}
+
+输入以下内容
+{{{
+syntax on
+
+set number
+}}}
