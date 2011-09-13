@@ -1,4 +1,5 @@
-
 * 参考文档
+  * Bash scripting Tutorial
+    * http://linuxconfig.org/Bash_scripting_Tutorial
   * Advanced Bash-Scripting Guide
     * http://tldp.org/LDP/abs/html/index.html
