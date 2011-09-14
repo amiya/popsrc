@@ -362,6 +362,9 @@ rm -fr /usr/local/mysql
 
   # 查看指定数据库占用空间
 {{{
+/* 查看数据大小 */
+SELECT CONCAT(ROUND(SUM(data_LENGTH)/(1024*1024),2),'MB') AS 'Data Size' FROM mysql.tables WHERE table_schema='website_db';
+
+/* 查看索引大小 */
 SELECT CONCAT(ROUND(SUM(index_LENGTH)/(1024*1024),2),'MB') AS 'Index Size' FROM mysql.tables WHERE table_schema='website_db';
-SELECT CONCAT(ROund(SUM(data_LENGTH)/(1024*1024),2),'MB') AS 'Data Size' FROM mysql.tables WHERE table_schema='website_db';
 }}}
