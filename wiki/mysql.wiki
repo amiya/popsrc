@@ -26,7 +26,7 @@
   * [mysql#how_to_install_mysql_server_5.1.58 how to install mysql server 5.1.58]
   * [mysql#how_to_install_mysql_server_5.5.15 how to install mysql server 5.5.15]
   * [mysql#how_to_install_multi_mysql_server_5.5.15 how to install multi mysql server 5.5.15]
-  * [mysql#FAQ 常见问题]
+  * [mysql#FAQ FAQ]
 
 = 参考文档 =
   * Using Option Files (MySQL 配置文件说明)
