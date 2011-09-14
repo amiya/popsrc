@@ -26,6 +26,7 @@
   * [mysql#how_to_install_mysql_server_5.1.58 how to install mysql server 5.1.58]
   * [mysql#how_to_install_mysql_server_5.5.15 how to install mysql server 5.5.15]
   * [mysql#how_to_install_multi_mysql_server_5.5.15 how to install multi mysql server 5.5.15]
+  * [mysql#FAQ 常见问题]
 
 = 参考文档 =
   * Using Option Files (MySQL 配置文件说明)
@@ -348,10 +349,19 @@ rm -fr /usr/local/mysql
 ----
 
 
-
 = how to install multi mysql server=
 
 == 第一种、安装多个同一版本的 mysql server ==
 === 1. 以正常方式安装好 mysql server ===
 
 == 第二种、安装多个不同版本的 mysql server ==
+
+----
+
+= FAQ =
+
+  # 查看指定数据库占用空间
+{{{
+SELECT CONCAT(ROUND(SUM(index_LENGTH)/(1024*1024),2),'MB') AS 'Index Size' FROM mysql.tables WHERE table_schema='website_db';
+SELECT CONCAT(ROund(SUM(data_LENGTH)/(1024*1024),2),'MB') AS 'Data Size' FROM mysql.tables WHERE table_schema='website_db';
+}}}
