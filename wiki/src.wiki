@@ -1,7 +1,9 @@
-
 = MySQL = 
   * http://www.mysql.com/
-  * http://mysql.cdpa.nsysu.edu.tw/Downloads/MySQL-5.5/mysql-5.5.16.tar.gz
+  * mysql-5.1.59
+    * http://mysql.ntu.edu.tw/Downloads/MySQL-5.1/mysql-5.1.59.tar.gz
+  * mysql-5.5.16
+    * http://mysql.cdpa.nsysu.edu.tw/Downloads/MySQL-5.5/mysql-5.5.16.tar.gz
 
 = PCRE =
   * http://www.pcre.org/
