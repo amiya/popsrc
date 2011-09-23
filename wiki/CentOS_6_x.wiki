@@ -141,7 +141,7 @@ yum makecache
 = FAQ =
 
 == FAQ wget speed up ==
-找开以下文件
+打开以下文件
 {{{
 vi ~/.bashrc
 }}}
