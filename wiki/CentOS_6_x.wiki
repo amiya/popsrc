@@ -1,4 +1,10 @@
 
+= 快速链接 =
+
+  * [#Disabling_IPv6 Disabling IPv6]
+  * [#Setup_Network_Connection Setup Network Connection]
+
+----
 
 = Disabling IPv6 =
 
