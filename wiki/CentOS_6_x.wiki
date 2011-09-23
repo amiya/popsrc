@@ -1,8 +1,20 @@
 
 = 快速链接 =
 
+  * [#Install_packages_for_CentOS_6.0_Minimal Install packages for CentOS 6.0 Minimal]
   * [#Disabling_IPv6 Disabling IPv6]
   * [#Setup_Network_Connection Setup Network Connection]
+
+----
+
+= Install packages for CentOS 6.0 Minimal =
+
+安装缺少的基础东西
+{{{
+yum -y install man file wget vim
+}}}
+
+
 
 ----
 
@@ -23,7 +35,7 @@ NETWORKING_IPV6=no
 {{{
 vi /etc/modprobe.d/ipv6.conf
 }}}
-输入入以下内容并保存
+输入以下内容并保存
 {{{
 alias net-pf-10 off
 alias ipv6 off
@@ -92,4 +104,7 @@ nameserver 202.96.128.166
 }}}
 
 
-== Setup yum repo ==
+----
+
+
+= Setup yum Repo =
