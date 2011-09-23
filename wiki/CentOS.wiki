@@ -1,19 +1,19 @@
 
-= CentOS 6.0 =
+= CentOS 6.0 Minimal =
 
-== Setup Network Connection ==
+== Disabling IPv6 ==
 
-=== 关闭 IPv6 ===
-
+=== Step 1 ===
 打开以下文件
 {{{
 vi /etc/sysconfig/network
 }}}
-修改 NETWORKING_IPV6 一行如下 (如果没有则加入)
+修改 NETWORKING_IPV6 一行如下(如果没有则加入) 并保存
 {{{
 NETWORKING_IPV6=no
 }}}
 
+=== Step 2 ===
 创建以下文件
 {{{
 vi /etc/modprobe.d/ipv6.conf
@@ -24,13 +24,15 @@ alias net-pf-10 off
 alias ipv6 off
 }}}
 
+=== Step 3 ===
 执行以下 shell 命令来关闭 ipv6 服务
 {{{
 service ip6tables stop
 chkconfig ip6tables off
 }}}
 
-最后重启系统并检查是否成功关闭了 ipv6
+=== Step 4 ===
+重启系统并检查是否成功关闭了 ipv6
 {{{
 # 使用ifconfig查看自己的IP地址是否含有IPv6地址
 ifconfig
@@ -42,13 +44,17 @@ netstat -tuln
 lsmod | grep ipv6
 }}}
 
-  * 参考文档
-    * Disabling IPV6 on Centos6
-      * http://serverfault.com/questions/314432/disabling-ipv6-on-centos6
-    * How do I disable IPv6
-      * http://wiki.centos.org/FAQ/CentOS6#head-d47139912868bcb9d754441ecb6a8a10d41781df
-    * Centos/Redhat中关闭IPV6
-      * http://blog.chinaunix.net/space.php?uid=20542054&do=blog&cuid=474768
+=== 参考文档 ===
+  * Disabling IPV6 on Centos6
+    * http://serverfault.com/questions/314432/disabling-ipv6-on-centos6
+  * How do I disable IPv6
+    * http://wiki.centos.org/FAQ/CentOS6#head-d47139912868bcb9d754441ecb6a8a10d41781df
+  * Centos/Redhat中关闭IPV6
+    * http://blog.chinaunix.net/space.php?uid=20542054&do=blog&cuid=474768
+
+
+
+== Setup Network Connection ==
 
 
 === 修改 IP和网关 ===
