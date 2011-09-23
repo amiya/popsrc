@@ -133,6 +133,8 @@ yum makecache
   * 参考文档
     * CentOS镜像使用帮助
       * http://mirrors.163.com/.help/centos.html
+    * 配置RHEL，CentOS yum本地源
+      * http://www.unixbar.net/linux/centos/956.html
 
 
 ----
