@@ -6,6 +6,8 @@
   * [#Network_Connection_Setup Network Connection Setup]
   * [#DNS_Setup DNS Setup]
   * [#yum_Repo_Setup yum Repo Setup]
+  * [#FAQ FAQ]
+    * [#FAQ_wget_speed_up FAQ wget speed up]
 
 ----
 
@@ -134,3 +136,16 @@ yum makecache
 
 
 ----
+
+
+= FAQ =
+
+== FAQ wget speed up ==
+找开以下文件
+{{{
+vi ~/.bashrc
+}}}
+添加以下内容并保存
+{{{
+alias wget='wget -4'
+}}}
