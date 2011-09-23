@@ -3,17 +3,23 @@
 
   * [#Install_packages_for_CentOS_6.0_Minimal Install packages for CentOS 6.0 Minimal]
   * [#Disabling_IPv6 Disabling IPv6]
-  * [#Setup_Network_Connection Setup Network Connection]
+  * [#Network_Connection_Setup Network Connection Setup]
+  * [#DNS_Setup DNS Setup]
+  * [#yum_Repo_Setup yum Repo Setup]
 
 ----
 
 = Install packages for CentOS 6.0 Minimal =
 
-安装缺少的基础东西
+安装基础东西
 {{{
 yum -y install man file wget vim
 }}}
 
+安装编译源代码需要的工具
+{{{
+yum -y install autoconf make
+}}}
 
 
 ----
@@ -68,15 +74,15 @@ lsmod | grep ipv6
     * http://wiki.centos.org/FAQ/CentOS6#head-d47139912868bcb9d754441ecb6a8a10d41781df
   * Centos/Redhat中关闭IPV6
     * http://blog.chinaunix.net/space.php?uid=20542054&do=blog&cuid=474768
+  * RedHat / Centos Disable IPv6 Networking
+    * http://www.cyberciti.biz/faq/redhat-centos-disable-ipv6-networking/
 
 
 ----
 
 
-= Setup Network Connection =
+= Network Connection Setup =
 
-
-== 修改 IP和网关 ==
 打开以下文件
 {{{
 vi /etc/sysconfig/network-scripts/ifcfg-eth0
@@ -93,8 +99,13 @@ NETMASK=255.255.255.0
 GATEWAY=192.168.1.1
 }}}
 
-== 修改 DNS ==
-用 vi 打开以下文件
+
+----
+
+
+= DNS Setup=
+
+打开以下文件
 {{{
 vi /etc/resolv.conf
 }}}
@@ -107,4 +118,19 @@ nameserver 202.96.128.166
 ----
 
 
-= Setup yum Repo =
+= yum Repo Setup =
+
+将 163 设置为 yum 源的方法如下
+{{{
+cd /etc/yum.repos.d/
+mv CentOS-Base.repo CentOS-Base.repo.backup
+wget http://mirrors.163.com/.help/CentOS6-Base-163.repo
+yum makecache
+}}}
+
+  * 参考文档
+    * CentOS镜像使用帮助
+      * http://mirrors.163.com/.help/centos.html
+
+
+----
