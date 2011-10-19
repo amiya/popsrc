@@ -98,9 +98,9 @@ DELETE FROM mysql.user WHERE user = "" OR password = "";
 /* 去掉默认允许的全部用户对 test 前缀的数据库的访问权限 */
 DELETE FROM mysql.db WHERE Db LIKE 'test%' AND user = "";
 
-/* 重新创建一个具有root权限的用户（root）和密码（12345678） */
-GRANT ALL ON *.* TO 'root'@'localhost' IDENTIFIED BY '12345678';
-GRANT ALL ON *.* TO 'root'@'127.0.0.1' IDENTIFIED BY '12345678';
+/* 重新创建一个具有全部权限的超级用户（root）和密码（12345678） */
+GRANT ALL ON *.* TO 'root'@'localhost' IDENTIFIED BY '12345678' WITH GRANT OPTION;
+GRANT ALL ON *.* TO 'root'@'127.0.0.1' IDENTIFIED BY '12345678' WITH GRANT OPTION;
 
 /* 令以上操作立即生效 */
 FLUSH PRIVILEGES;
@@ -122,6 +122,9 @@ FLUSH PRIVILEGES;
 
 # 导出一个或多个数据表的表结构和数据 (从数据库 website_db 中导出 tbl_user 表和 tbl_admin 表)
 /usr/local/mysql/bin/mysqldump -u root -p --skip-add-drop-table website_db tbl_user tbl_admin > /tmp/multi-tables.sql
+
+# 导出全部数据库的表结构和数据
+/usr/local/mysql/bin/mysqldump -u root -p --all-databases > /tmp/all-db.sql
 }}}
   * 参考文档
     * mysqldump — A Database Backup Program
