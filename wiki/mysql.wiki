@@ -80,6 +80,26 @@ ln -s /etc/init.d/mysql.server /etc/rc0.d/K01mysql
       * http://dev.mysql.com/doc/refman/5.5/en/automatic-start.html
 
 == How to Reset the Root Password ==
+{{{
+# 先停止 mysql server
+service mysqld stop
+
+vim /usr/local/mysql/mysql-init.sql
+# 输入下面内容并保存
+}}}
+{{{
+# 下面的 12345678 是密码
+GRANT ALL ON *.* TO 'root'@'localhost' IDENTIFIED BY '12345678' WITH GRANT OPTION;
+GRANT ALL ON *.* TO 'root'@'127.0.0.1' IDENTIFIED BY '12345678' WITH GRANT OPTION;
+}}}
+
+{{{
+# 启动 mysql server
+/usr/local/mysql/mysqld_safe --init-file=/usr/local/mysql/mysql-init.sql &
+
+# 删除以下文件
+rm -f /usr/local/mysql/mysql-init.sql
+}}}
   * 参考文档
     * How to Reset the Root Password
       * http://dev.mysql.com/doc/refman/5.5/en/resetting-permissions.html
