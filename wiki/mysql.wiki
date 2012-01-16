@@ -271,18 +271,18 @@ mkdir -p /root/software
 cd /root/software
 
 # 下载 mysql 源代码
-wget http://popsrc.googlecode.com/files/mysql-5.5.15.tar.gz
+wget http://popsrc.googlecode.com/files/mysql-5.5.20.tar.gz
 
 # 下载编译安装 mysql 源代码所需软件
-wget http://popsrc.googlecode.com/files/cmake-2.8.5.tar.gz
+wget http://popsrc.googlecode.com/files/cmake-2.8.7.tar.gz
 }}}
 
 == 2. 安装 cmake ==
 
 {{{
 cd /root/software
-tar zxvf cmake-2.8.5.tar.gz
-cd cmake-2.8.5
+tar zxvf cmake-2.8.7.tar.gz
+cd cmake-2.8.7
 ./bootstrap
 make && make install
 }}}
@@ -301,8 +301,8 @@ rm config.cache
 
 {{{
 cd /root/software
-tar zxvf mysql-5.5.15.tar.gz
-cd mysql-5.5.15
+tar zxvf mysql-5.5.20.tar.gz
+cd mysql-5.5.20
 cmake . \
     -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
     -DMYSQL_TCP_PORT=3306 \
