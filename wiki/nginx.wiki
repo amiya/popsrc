@@ -4,8 +4,9 @@
   * [#Manage 常用管理命令]
   * [#Config 配置]
     * [#Config_file 配置文件路径]
+    * [#Hide_version 隐藏版本号]
+    * [#Gzip_output 启用 Gzip 压缩输出]
     * [#Optimize_CPU 优化 CPU]
-    * [#Hide_Version 隐藏版本号]
 
 
 ----
@@ -138,10 +139,21 @@ rm -f /usr/local/nginx/sbin/nginx.old
 /usr/local/nginx/conf/nginx.conf
 }}}
 
-== Hide Version ==
+== Hide version ==
 在 http {} 加入
 {{{
 server_tokens       off;    # http header 不输出 nginx 版本号
+}}}
+
+== Gzip output ==
+在 http {} 加入 或 server {} 加入
+{{{
+gzip on;
+gzip_min_length  2048;
+gzip_buffers     4 8k;
+gzip_http_version 1.1;
+gzip_types       text/plain application/x-javascript text/css application/xml;
+gzip_disable     "MSIE [1-6]\.";	# 对 IE 1-6 取消 gzip 输出
 }}}
 
 == Optimize CPU ==
