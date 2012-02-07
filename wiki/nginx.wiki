@@ -1,8 +1,8 @@
 = 快速链接 =
-  * [#Install 安装 nginx]
-  * [#Upgrade 升级 nginx ]
+  * [#Install 安装]
+  * [#Upgrade 升级]
   * [#Manage 常用管理命令]
-  * [#Config 配置 nginx ]
+  * [#Config 配置]
     * [#Optimize_CPU 优化 CPU]
 
 
