@@ -1,13 +1,18 @@
 = 快速链接 =
   * [#Install 安装 nginx]
   * [#Upgrade 升级 nginx ]
+  * [#Manage 管理 nginx]
+    * [#Start 启动]
+    * [#Quit 正常退出]
+    * [#Stop 强制停止]
+    * [#Reload 重新启动]
   * [#Config 配置 nginx ]
     * [#Optimize_CPU 优化 CPU]
 
 
 ----
 
-= Installation =
+= Install =
 
 {{{
 mkdir -p /root/software
@@ -23,11 +28,16 @@ make install
 
 ----
 
-= Upgrading =
+= Upgrade =
 
 
 ----
 
-= Configuring =
+= Manage  =
+
+
+----
+
+= Config =
 
 == Optimize CPU ==
