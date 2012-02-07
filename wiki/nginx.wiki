@@ -1,9 +1,16 @@
 = 快速链接 =
-  * [#Installation 安装 nginx]
-  * [#Upgrading 升级 nginx ]
+  * [#Install 安装 nginx]
+  * [#Upgrade 升级 nginx ]
+  * [#Config 配置 nginx ]
+    * [#Optimize_CPU 优化 CPU]
 
 
 = Installation =
 
 
 = Upgrading =
+
+
+= Configuring =
+
+== Optimize CPU ==
