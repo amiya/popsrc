@@ -21,6 +21,12 @@ make
 make install
 }}}
 
+  * 参考文档
+    * Install
+      * http://wiki.nginx.org/Install
+    * Installation and compile-time options
+      * http://wiki.nginx.org/InstallOptions
+
 
 ----
 
@@ -62,6 +68,11 @@ rm -f /usr/local/nginx/sbin/nginx.old
 
 }}}
 
+  * 参考文档
+    * Upgrading To a New Binary On The Fly
+      * http://wiki.nginx.org/NginxCommandLine#Upgrading_To_a_New_Binary_On_The_Fly
+    * 
+
 ----
 
 = Manage  =
@@ -87,7 +98,7 @@ rm -f /usr/local/nginx/sbin/nginx.old
 # 立即退出 (不理会是否有执行中的请求)
 /usr/local/nginx/sbin/nginx -s stop
 
-# 重新启动 (重新载入配置文件)
+# 重新启动 (平滑修改配置)
 /usr/local/nginx/sbin/nginx -s reload
 }}}
 
