@@ -11,6 +11,21 @@
 
 = Install =
 
+前置条件
+{{{
+# https 需要
+yum -y install openssl openssl-devel
+
+# 安装 pcre 库
+mkdir -p /root/software
+cd /root/software
+wget http://nchc.dl.sourceforge.net/project/pcre/pcre/8.21/pcre-8.21.tar.gz
+tar zxvf pcre-8.21.tar.gz
+cd pcre-8.21
+./configure
+make && make install
+}}}
+
 安装 nginx-1.0.11
 {{{
 mkdir -p /root/software
