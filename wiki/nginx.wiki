@@ -102,6 +102,11 @@ rm -f /usr/local/nginx/sbin/nginx.old
 /usr/local/nginx/sbin/nginx -s reload
 }}}
 
+  * 参考文档
+    * CommandLine
+      * http://wiki.nginx.org/NginxCommandLine
+
+
 ----
 
 = Config =
