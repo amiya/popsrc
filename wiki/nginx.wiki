@@ -19,7 +19,4 @@
 
 = Configuring =
 
-
-----
-
 == Optimize CPU ==
