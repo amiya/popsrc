@@ -31,6 +31,15 @@ make install
 
 = Manage  =
 {{{
+# 查看全部可用命令
+/usr/local/nginx/sbin/nginx -h
+
+# 查看版本信息
+/usr/local/nginx/sbin/nginx -v
+
+# 查看版本及编译参数等信息
+/usr/local/nginx/sbin/nginx -V
+
 # 检查配置是否正确
 /usr/local/nginx/sbin/nginx -t
 
