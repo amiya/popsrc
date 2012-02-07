@@ -33,9 +33,9 @@ make install
 ----
 
 = Upgrade =
-{{{
-# 从 nginx-1.0.11 升级到 nginx-1.0.12
 
+升级到 nginx-1.0.12
+{{{
 # 查看当前版本的编译参数
 /usr/local/nginx/sbin/nginx -V
 
