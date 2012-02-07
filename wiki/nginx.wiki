@@ -46,6 +46,7 @@ cd /root/software
 wget http://nginx.org/download/nginx-1.0.12.tar.gz
 tar zxvf nginx-1.0.12.tar.gz
 cd nginx-1.0.12
+# 注意编译参数要正确
 ./configure --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module
 make
 cp objs/nginx /usr/local/nginx/sbin/nginx
