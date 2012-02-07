@@ -5,6 +5,7 @@
   * [#Config 配置]
     * [#Config_file 配置文件路径]
     * [#Optimize_CPU 优化 CPU]
+    * [#Hide_Version 隐藏版本号]
 
 
 ----
@@ -137,6 +138,12 @@ rm -f /usr/local/nginx/sbin/nginx.old
 /usr/local/nginx/conf/nginx.conf
 }}}
 
+== Hide Version ==
+{{{
+# 在 http {} 加入
+server_tokens       off;    # http header 不输出 nginx 版本号
+}}}
+
 == Optimize CPU ==
 {{{
 # 查看当前机器 CPU 数
@@ -144,6 +151,8 @@ cat /proc/cpuinfo | grep processor
 }}}
 
 {{{
+# 在全局配置头部加入
+
 # 4核心 CPU 使用以下配置
 worker_processes  4;
 worker_cpu_affinity 0001 0010 0100 1000;
