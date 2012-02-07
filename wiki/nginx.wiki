@@ -157,7 +157,7 @@ gzip_disable     "MSIE [1-6]\.";	# 对 IE 1-6 取消 gzip 输出
 }}}
 
   * 参考文档
-    * HttpGzipModule
+    * `HttpGzipModule`
       * http://wiki.nginx.org/HttpGzipModule
 
 == Optimize CPU ==
