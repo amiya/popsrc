@@ -3,6 +3,7 @@
   * [#Upgrade 平滑升级]
   * [#Manage 常用管理命令]
   * [#Config 配置]
+  * [#Optimize 优化]
     * [#Optimize_CPU 优化 CPU]
 
 
@@ -110,5 +111,10 @@ rm -f /usr/local/nginx/sbin/nginx.old
 ----
 
 = Config =
+
+
+----
+
+= Optimize =
 
 == Optimize CPU ==
