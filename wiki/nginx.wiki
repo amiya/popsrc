@@ -184,3 +184,5 @@ worker_cpu_affinity 00000001 00000010 00000100 00001000 00010000 00100000 010000
       * http://wiki.nginx.org/CoreModule#worker_cpu_affinity
     * Nginx 优化：CPU
       * http://www.reistlin.com/blog/176
+    * 关于Nginx的一些优化(突破十万并发)  
+      * http://www.howtocn.org/nginx:%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84nginx_fastcgi%E6%9C%8D%E5%8A%A1%E5%99%A8
