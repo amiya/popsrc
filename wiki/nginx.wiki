@@ -156,6 +156,10 @@ gzip_types       text/plain application/x-javascript text/css application/xml;
 gzip_disable     "MSIE [1-6]\.";	# 对 IE 1-6 取消 gzip 输出
 }}}
 
+  * 参考文档
+    * HttpGzipModule
+      * http://wiki.nginx.org/HttpGzipModule
+
 == Optimize CPU ==
 {{{
 # 查看当前机器 CPU 数
