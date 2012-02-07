@@ -3,6 +3,7 @@
   * [#Upgrade 平滑升级]
   * [#Manage 常用管理命令]
   * [#Config 配置]
+    * [#Config_file 配置文件路径]
     * [#Optimize_CPU 优化 CPU]
 
 
@@ -110,6 +111,11 @@ rm -f /usr/local/nginx/sbin/nginx.old
 ----
 
 = Config =
+
+== Config file ==
+{{{
+vi /usr/local/nginx/conf/nginx.conf
+}}}
 
 == Optimize CPU ==
 {{{
