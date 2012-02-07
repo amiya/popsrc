@@ -3,7 +3,6 @@
   * [#Upgrade 平滑升级]
   * [#Manage 常用管理命令]
   * [#Config 配置]
-  * [#Optimize 优化]
     * [#Optimize_CPU 优化 CPU]
 
 
@@ -112,9 +111,26 @@ rm -f /usr/local/nginx/sbin/nginx.old
 
 = Config =
 
-
-----
-
-= Optimize =
-
 == Optimize CPU ==
+{{{
+# 现在当前机器 CPU 数
+cat /proc/cpuinfo | grep processor
+}}}
+
+{{{
+# 4核心 CPU 使用以下配置
+worker_processes  4;
+worker_cpu_affinity 0001 0010 0100 1000;
+
+# 8核心 CPU 使用以下配置
+worker_processes 8;
+worker_cpu_affinity 00000001 00000010 00000100 00001000 00010000 00100000 01000000 10000000;
+}}}
+
+  * 参考文档
+    * worker_processes
+      * http://wiki.nginx.org/CoreModule#worker_processes
+    * worker_cpu_affinity
+      * http://wiki.nginx.org/CoreModule#worker_cpu_affinity
+    * Nginx 优化：CPU
+      * http://www.reistlin.com/blog/176
