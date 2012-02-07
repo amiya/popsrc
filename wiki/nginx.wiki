@@ -94,7 +94,7 @@ rm -f /usr/local/nginx/sbin/nginx.old
 # 正常退出 (完成全部请求后再退出)
 /usr/local/nginx/sbin/nginx -s quit
 
-# 立即退出 (即使有请求正在执行也强制退出)
+# 立即退出 (即使有请求正在执行也立即退出)
 /usr/local/nginx/sbin/nginx -s stop
 
 # 重新启动 (平滑修改配置)
