@@ -119,7 +119,7 @@ vi /usr/local/nginx/conf/nginx.conf
 
 == Optimize CPU ==
 {{{
-# 现在当前机器 CPU 数
+# 查看当前机器 CPU 数
 cat /proc/cpuinfo | grep processor
 }}}
 
