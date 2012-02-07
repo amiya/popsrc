@@ -1,11 +1,7 @@
 = 快速链接 =
   * [#Install 安装 nginx]
   * [#Upgrade 升级 nginx ]
-  * [#Manage 管理 nginx]
-    * [#Start 启动]
-    * [#Quit 正常退出]
-    * [#Stop 强制停止]
-    * [#Reload 重新启动]
+  * [#Manage 常用管理命令]
   * [#Config 配置 nginx ]
     * [#Optimize_CPU 优化 CPU]
 
@@ -34,7 +30,22 @@ make install
 ----
 
 = Manage  =
+{{{
+# 检查配置是否正确
+/usr/local/nginx/sbin/nginx -t
 
+# 启动
+/usr/local/nginx/sbin/nginx
+
+# 正常退出 (完成全部请求后再退出)
+/usr/local/nginx/sbin/nginx -s quit
+
+# 立即退出 (不理会是否有执行中的请求)
+/usr/local/nginx/sbin/nginx -s stop
+
+# 重新启动 (重新载入配置文件)
+/usr/local/nginx/sbin/nginx -s reload
+}}}
 
 ----
 
