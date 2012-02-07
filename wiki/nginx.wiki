@@ -103,7 +103,7 @@ rm -f /usr/local/nginx/sbin/nginx.old
 }}}
 
   * 参考文档
-    * CommandLine
+    * `CommandLine`
       * http://wiki.nginx.org/NginxCommandLine
 
 
