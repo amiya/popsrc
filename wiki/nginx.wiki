@@ -25,7 +25,42 @@ make install
 ----
 
 = Upgrade =
+{{{
 
+# 查看当前版本的编译参数
+/usr/local/nginx/sbin/nginx -V
+
+# 下载新版本、编译出二进制文件 (编译后注意不要 make install)
+mkdir -p /root/software
+cd /root/software
+wget http://nginx.org/download/nginx-1.0.12.tar.gz
+tar zxvf nginx-1.0.12.tar.gz
+cd nginx-1.0.12
+./configure --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module
+make
+
+# 备份现时二进制文件
+mv /usr/local/nginx/sbin/nginx /usr/local/nginx/sbin/nginx.old
+
+# 复制新的二进制文件
+cp objs/nginx /usr/local/nginx/sbin/nginx
+
+# 测试新二进制文件是否成功
+/usr/local/nginx/sbin/nginx -t
+
+# 给 nginx 发送升级指令
+kill -USR2 `cat /usr/local/nginx/logs/nginx.pid`
+
+# 退出旧的 nignx
+kill -QUIT `cat /usr/local/nginx/logs/nginx.pid.oldbin`
+
+# 升级后再查看下新版本
+/usr/local/nginx/sbin/nginx -V
+
+# 删除旧的二进制文件
+rm -f /usr/local/nginx/sbin/nginx.old
+
+}}}
 
 ----
 
