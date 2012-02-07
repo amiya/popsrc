@@ -105,6 +105,9 @@ rm -f /usr/local/nginx/sbin/nginx.old
   * 参考文档
     * `CommandLine`
       * http://wiki.nginx.org/NginxCommandLine
+    * 按日切割日志
+      * http://zhys9.com/blog/?p=334
+      * http://my.oschina.net/doraemon/blog/12304
 
 
 ----
