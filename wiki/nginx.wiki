@@ -255,15 +255,17 @@ http {
 
         location / {
             index  index.html index.php;
+            try_files $uri /index.php?$uri&$args;
         }
 
-        location /upload {
-            # 禁止执行上传目录下的 php 程序
-            if ($request_uri ~ \.php$) {
+        location ^~ /upload/ {
+            # 禁止解析执行上传目录里面的 php 文件
+            if ($request_uri ~* \.php$) {
                return 403;
             }
         }
 
+        # 解析执行 php 文件
         location ~ \.php$ {
             try_files $uri =404;                # php 文件存在时才让 phpcgi 解析
             fastcgi_pass   127.0.0.1:9010;
