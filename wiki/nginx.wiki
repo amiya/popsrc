@@ -292,11 +292,11 @@ http {
   * 参考文档
     * Nginx Pitfalls
       * http://wiki.nginx.org/Pitfalls
-    * HttpCoreModule
+    * `HttpCoreModule`
       * http://wiki.nginx.org/NginxHttpCoreModule
-    * NginxHttpCoreModule :: location
+    * `NginxHttpCoreModule :: location`
       * http://wiki.nginx.org/NginxHttpCoreModule#location
-    * NginxHttpCoreModule :: try_files
+    * `NginxHttpCoreModule :: try_files`
       * http://wiki.nginx.org/NginxHttpCoreModule#try_files
 
     
