@@ -224,7 +224,7 @@ http {
     keepalive_timeout  65;
 
 
-    # 服务器当前状态
+    # 服务器状态
     server {
         listen  80;
         server_name  status.example.com;
