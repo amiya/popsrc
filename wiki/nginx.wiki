@@ -242,10 +242,11 @@ http {
         access_log   logs/www.example.com.access.log  main;
         root         /home/www/www.example.com;
         
+        # 压缩输出 js, css, html, xml 类型的内容
         gzip on;
         gzip_min_length  1000;
         gzip_buffers     4 8k;
-        gzip_types       text/plain application/x-javascript text/css application/xml;
+        gzip_types       text/plain text/css application/xml application/x-javascript;
         gzip_disable     "MSIE [1-6]\.";        # 对 IE 1-6 取消 gzip 输出
 
         # 若文件不存在，则将请求转发到 /index.php
