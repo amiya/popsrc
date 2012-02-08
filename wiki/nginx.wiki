@@ -257,7 +257,15 @@ http {
             index  index.html index.php;
         }
 
+        location /upload {
+            # 禁止执行上传目录下的 php 程序
+            if $request_uri ~ \.php$ {
+               return 403;
+            }
+        }
+
         location ~ \.php$ {
+            try_files $uri =404;
             fastcgi_pass   127.0.0.1:9010;
             fastcgi_index  index.php;
             include        fastcgi.conf;
@@ -265,7 +273,7 @@ http {
     }
 
 
-    # 保存上传内容
+    # 静态内容(上传目录)
     server {
         listen       80;
         server_name  upload.example.com;
