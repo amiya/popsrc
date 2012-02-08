@@ -250,9 +250,12 @@ http {
 
         location / {
             index  index.html index.php;
-            try_files $uri /index.php;
+            try_files $uri /index.php?$uri&$args;    # 若文件不存在，则将请求转发到 index.php
         }
         location ~ \.php$ {
+            if (!-e $request_filename) {
+                return 404;
+            }
             fastcgi_pass   unix:/tmp/php.socket;
             fastcgi_index  index.php;
             include        fastcgi.conf;
