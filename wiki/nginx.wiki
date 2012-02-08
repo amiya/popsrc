@@ -227,7 +227,7 @@ http {
     # 服务器当前状态
     server {
         listen  80;
-        server_name  status.dengcan.com;
+        server_name  status.example.com;
         location / {
             stub_status on;
             access_log   off;
