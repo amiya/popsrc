@@ -265,7 +265,7 @@ http {
         }
 
         location ~ \.php$ {
-            try_files $uri =404;
+            try_files $uri =404;                # php 文件存在时才让 phpcgi 解析
             fastcgi_pass   127.0.0.1:9010;
             fastcgi_index  index.php;
             include        fastcgi.conf;
