@@ -260,7 +260,7 @@ http {
         location ^~ /upload/ {
             # 禁止解析执行上传目录里面的 php 文件
             if ($request_uri ~* \.php$) {
-               return 404;
+               return 403;
             }
         }
 
