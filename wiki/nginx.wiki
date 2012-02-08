@@ -259,7 +259,7 @@ http {
 
         location /upload {
             # 禁止执行上传目录下的 php 程序
-            if $request_uri ~ \.php$ {
+            if ($request_uri ~ \.php$) {
                return 403;
             }
         }
