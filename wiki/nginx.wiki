@@ -7,6 +7,7 @@
     * [#Hide_version 隐藏版本号]
     * [#Gzip_output 启用 Gzip 压缩输出]
     * [#Optimize_CPU 优化 CPU]
+    * [#Config_Example 完整配置示例]
 
 
 ----
@@ -186,3 +187,90 @@ worker_cpu_affinity 00000001 00000010 00000100 00001000 00010000 00100000 010000
       * http://www.reistlin.com/blog/176
     * 关于Nginx的一些优化(突破十万并发)  
       * http://www.howtocn.org/nginx:%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84nginx_fastcgi%E6%9C%8D%E5%8A%A1%E5%99%A8
+
+
+== ConfigExample ==
+完整配置示例
+{{{
+
+user  nobody;
+worker_processes  4;
+worker_cpu_affinity 0001 0010 0100 1000;
+
+error_log  logs/error.log  error;
+
+pid        logs/nginx.pid;
+
+
+events {
+    use epoll;
+    worker_connections  1024;
+}
+
+
+http {
+    server_tokens       off;
+
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                        '$status $body_bytes_sent "$http_referer" '
+                        '"$http_user_agent" "$http_x_forwarded_for"';
+
+    sendfile        on;
+    tcp_nopush      on;
+
+    keepalive_timeout  65;
+
+
+    # 服务器当前状态
+    server {
+        listen  80;
+        server_name  status.dengcan.com;
+        location / {
+            stub_status on;
+            access_log   off;
+        }
+    }
+
+
+    # 主站
+    server {
+        listen       80;
+        server_name  www.example.com  abc.com;
+        access_log   logs/www.example.com.access.log  main;
+        root         /home/www/www.example.com;
+        
+        gzip on;
+        gzip_min_length  1000;
+        gzip_buffers     4 8k;
+        gzip_types       text/plain application/x-javascript text/css application/xml;
+        gzip_disable     "MSIE [1-6]\.";        # 对 IE 1-6 取消 gzip 输出
+
+        location / {
+            index  index.html index.php;
+            try_files $uri /index.php;
+        }
+        location ~ \.php$ {
+            fastcgi_pass   unix:/tmp/php-5.3.10.socket;
+            fastcgi_index  index.php;
+            include        fastcgi.conf;
+        }
+    }
+
+
+    # 保存上传内容
+    server {
+        listen       80;
+        server_name  upload.example.com;
+        access_log   logs/upload.example.com.access.log  main;
+        root         /home/www/upload.example.com;    # 注意不能是主站的子目录，否则会存在安全问题
+
+        location / {
+            index  index.html;
+        }
+    }
+}
+
+}}}
