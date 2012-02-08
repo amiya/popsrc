@@ -224,6 +224,10 @@ http {
     keepalive_timeout  65;
 
 
+    # 入口文件
+    index  index.html index.php;
+
+
     # 服务器状态
     server {
         listen       80;
@@ -250,7 +254,6 @@ http {
         gzip_disable     "MSIE [1-6]\.";        # 对 IE 1-6 取消 gzip 输出
 
         location / {
-            index  index.html index.php;
             try_files $uri /index.php?$uri&$args;    # 若文件不存在，则将请求转发到 /index.php
         }
 
@@ -279,7 +282,7 @@ http {
         root         /home/www/upload.example.com;    # 注意不能是主站的子目录，否则会存在安全问题
 
         location / {
-            index  index.html;
+            try_files $uri =404;
         }
     }
 }
