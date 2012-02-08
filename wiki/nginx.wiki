@@ -209,7 +209,7 @@ events {
 
 
 http {
-    server_tokens       off;
+    server_tokens       off;    # http header 不输出 nginx 版本号
 
     include       mime.types;
     default_type  application/octet-stream;
