@@ -287,3 +287,17 @@ http {
 }
 
 }}}
+
+
+  * 参考文档
+    * Nginx Pitfalls
+      * http://wiki.nginx.org/Pitfalls
+    * HttpCoreModule
+      * http://wiki.nginx.org/NginxHttpCoreModule
+    * NginxHttpCoreModule :: location
+      * http://wiki.nginx.org/NginxHttpCoreModule#location
+    * NginxHttpCoreModule :: try_files
+      * http://wiki.nginx.org/NginxHttpCoreModule#try_files
+
+    
+     
