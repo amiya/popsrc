@@ -60,7 +60,7 @@ service php-fpm stop
 mv /usr/local/php/ /usr/local/php-old/
 }}}
 
-升级到 php-5.3.10
+升级到 php-5.3.10 (fast cgi 方式)
 {{{
 cd /root/software
 wget http://cn.php.net/distributions/php-5.3.10.tar.gz
