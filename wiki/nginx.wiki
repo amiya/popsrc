@@ -147,7 +147,7 @@ server_tokens       off;    # http header 不输出 nginx 版本号
 }}}
 
 == Gzip output ==
-在 http {} 加入 或 server {} 加入
+在 http {} 或 server {} 或 location {} 加入
 {{{
 gzip on;
 gzip_min_length  2048;
