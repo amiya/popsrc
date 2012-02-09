@@ -1,0 +1,212 @@
+
+---------------------------------------------------------------------------------------
+系统常用命令
+
+	help - Display helpful information about builtin commands
+	man - format and display the on-line manual pages
+	info - read Info documents
+
+	file - determine file type
+	cd - Change the current directory to DIR
+	pwd - print name of current/working directory
+
+	chmod - change file access permissions
+	rm - remove files or directories
+	mv - move (rename) files
+	cp - copy files and directories
+	mkdir - make directories
+	rmdir - remove empty directories
+	unlink - call the unlink function to remove the specified file
+
+	ln - make links between files
+
+	sh - 执行 shell 脚本
+
+	uptime - Tell how long the system has been running.
+	top - display Linux tasks
+	free - Display amount of free and used memory in the system
+	ps - report a snapshot of the current processes
+	who - show who is logged on
+	whereis  -  locate the binary, source, and manual page files for a command
+
+	clear - clear the terminal screen
+	more - file perusal filter for crt viewing
+	less - opposite of more
+	cat - concatenate files and print on the standard output
+	grep, egrep, fgrep - print lines matching a pattern
+	tail - output the last part of files
+
+	shutdown - bring the system down
+	halt, reboot, poweroff - stop the system
+
+	ifconfig - configure a network interface
+
+	passwd - update a user’s authentication tokens(s)
+	su - run a shell with substitute user and group IDs
+
+
+FAQ
+
+	查看命令用法
+		man [cmd]
+
+	修改自己密码
+		passwd
+
+	修改指定用户密码
+		passwd [user]
+
+	切换到 root 用户
+		su
+
+	切换到指定用户
+		su [user]
+
+	配置IP, Gateway
+		ifconfig eth0 192.168.0.1 netmask 255.255.255.0 up
+		或者直接修改 /etc/sysconfig/network-scripts/ifcfg-eth0
+			自动获取 IP
+				DEVICE=eth0
+				BOOTPROTO=dhcp
+				HWADDR=00:03:47:2C:D5:40
+				ONBOOT=yes
+				TYPE=Ethernet
+			设置静态 IP
+				DEVICE=eth0
+				BOOTPROTO=static
+				HWADDR=00:03:47:2C:D5:40
+				ONBOOT=yes
+				TYPE=Ethernet
+				IPADDR=192.168.1.223
+				NETMASK=255.255.255.0
+				GATEWAY=192.168.1.1
+			修改后重启网卡
+				/sbin/ifdown eth0
+				/sbin/ifup eth0
+				/etc/init.d/network restart
+
+	配置DNS
+		修改 /etc/resolv.conf
+			nameserver 202.96.128.166
+
+	安装 rz, sz
+		wget http://freeware.sgi.com/source/rzsz/rzsz-3.48.tar.gz
+		tar zxvf  rzsz-3.34.tar.gz
+		cd src
+		make posix
+		cp rz sz  /usr/bin
+
+	使用 rz, sz
+		如果不加 -y 参数，当同名文件存在时，将不覆盖
+
+	查看本机开启的服务
+		service --status-all
+		chkconfig --list
+		netstat -lntp
+		setup (for redhat/centos)
+
+	执行 shell 脚本
+		sh [file.sh]
+		或者
+			chmod +x [file.sh]
+			./file.sh
+
+	设置系统默认启动的界面
+		/etc/inittab
+			图形界面:	id:5:initdefault:
+			命令行模式:	id:3:initdefault:
+
+	重启网卡
+		/etc/init.d/network restart
+
+	输出当前日期
+		echo `date +"%Y-%m-%d"`
+		echo `date +"%Y-%m-%d %H:%M:%S"`
+
+	查看当前监听中的端口列表
+		netstat -tln
+		netstat -lpnut
+		nmap 127.0.0.1
+
+	查看指定端口是否开放
+		nmap -p 80 127.0.0.1
+
+	打开指定端口
+		修改 /etc/sysconfig/iptables, 加入以下内容 (开放 80 端口)，保存
+			-A RH-Firewall-1-INPUT -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT
+		重启防火墙
+			/etc/init.d/iptables restart
+
+
+---------------------------------------------------------------------------------------
+Note:
+
+	在 man, info 命令显示的信息界面中, 按 空格键 向下翻页, 按 b键 向上翻页 ,按 q键 退出
+
+
+---------------------------------------------------------------------------------------
+vi 常用命令
+
+	http://www.eec.com/business/vi.html
+
+	:set number		显示行号
+	:set nonumber	隐藏行号
+	dd:	 删除当前行
+
+	:1 : Go to start of file
+	G:   Go to end of file
+
+	u: undo last change (can be repeated to undo preceding commands)
+	U: return the line to its original state (undo all changes in current line)
+	Ctrl-R: Redo changes which were undone (undo the undos). Compare to '.' to repeat a previous change, at the current cursor position. Ctrl-R will redo a previously undone change, wherever the change occurred.
+
+	CTRL-D = page down
+	CTRL-B = page up
+
+vi 常用技巧
+
+
+---------------------------------------------------------------------------------------
+SecureCRT 的sz/rz工具包
+	yum install lrzsz
+
+---------------------------------------------------------------------------------------
+在虚拟机装完 CentOS 后
+	1. 修改 root 用户密码
+	2. 查看 IP
+	3. 查看、修改启动的服务有哪些
+		# chkconfig sendmail off (设定不启动 sendmail)
+		# chkconfig yum-updatesd off (设定不启动 sendmail)
+	4. 查看、修改防火墙端口 (开放 SSH, HTTP, HTTPS)
+	5. 修改为使用命令行界面
+	6. 修改时区
+	7. 修改主机名
+		# hostname [name]
+		# vi /etc/syconfig/network (修改 HOSTNAME)
+	8. 安装 rz sz
+	9. 修改通过 SSH 登录后显示的主机名 (.bashrc 文件)
+
+	10.安装 vim
+	11.安装 Apache
+		# wget http://mirror.bjtu.edu.cn/apache//httpd/httpd-2.2.19.tar.gz
+		# tar zxvf httpd-2.2.19.tar.gz
+		# cd httpd-2.2.19
+		# ./configure --enable-so --enable-ssl --enable-rewrite --enable-deflate
+		# make
+		# make install
+
+		测试是否成功
+			/usr/local/apache2/bin/apachectl start
+			/usr/local/apache2/bin/apachectl stop
+
+		修改配置
+		# vi /usr/local/apache2/conf/httpd.conf
+
+		./configure 如果碰到错误
+			checking whether to enable mod_deflate... configure: error: mod_deflate has been requested but can not be built due to prerequisite failures
+			# yum -y install zlib-devel
+
+			configure: error: ...No recognized SSL/TLS toolkit detected
+			# yum -y install openssl-devel
+
+	12.安装 PHP
