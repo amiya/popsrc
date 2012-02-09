@@ -3,6 +3,11 @@
   * php-5.3.10
     * http://cn.php.net/distributions/php-5.3.10.tar.gz
 
+= nginx =
+  * http://www.nginx.org/
+  * nginx-1.0.12
+    * http://nginx.org/download/nginx-1.0.12.tar.gz
+
 = MySQL = 
   * http://www.mysql.com/
   * mysql-5.1.60
