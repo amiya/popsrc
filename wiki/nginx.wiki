@@ -305,6 +305,7 @@ http {
       * http://wiki.nginx.org/NginxHttpCoreModule#location
     * `NginxHttpCoreModule :: try_files`
       * http://wiki.nginx.org/NginxHttpCoreModule#try_files
-
+    * Using Yii with Nginx and PHP-FPM
+      * http://www.yiiframework.com/wiki/153/using-yii-with-nginx-and-php-fpm/
     
      
