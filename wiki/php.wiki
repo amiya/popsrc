@@ -28,6 +28,11 @@ cd php-5.3.9
 ./configure --prefix=/usr/local/php --enable-fpm --with-curl --with-mcrypt --enable-mbstring --with-iconv --with-gd --with-jpeg-dir --with-zlib --with-mysql=mysqlnd --with-mysqli=mysqlnd --enable-pdo --with-pdo-mysql=mysqlnd --enable-sockets --enable-pcntl --enable-shmop --enable-sysvsem --with-openssl
 make && make install
 
+# 复制 php-fpm 控制脚本
+cp sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm
+chmod +x /etc/init.d/php-fpm    # 设置为可执行
+chkconfig --add php-fpm         # 设置为系统服务
+
 # 复制 php.ini
 cp php.ini-production /usr/local/php/lib/php.ini
 
