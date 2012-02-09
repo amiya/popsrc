@@ -91,10 +91,12 @@ service php-fpm start
 }}}
 
 
+----
+
 = Config =
 
 == PHP Ini Example  ==
-常用配置
+php.ini 常用配置 ( /usr/local/php/lib/php.ini )
 {{{
 # 安全设置
 cgi.fix_pathinfo = 0
@@ -111,5 +113,4 @@ display_error = On	(测试机)
 
 # 启用扩展
 # ...
-}}}
 }}}
