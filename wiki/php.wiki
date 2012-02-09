@@ -113,6 +113,7 @@ display_error = Off	(生产机)
 display_error = On	(测试机)
 
 # 启用扩展
+extension=imagick.so
 # ...
 }}}
 
