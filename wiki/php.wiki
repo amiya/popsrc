@@ -90,3 +90,27 @@ cp /usr/local/php-old/etc/php-fpm.conf /usr/local/php/etc/php-fpm.conf
 # 启动 fast cgi
 service php-fpm start
 }}}
+
+
+= Config =
+
+== Config Example ==
+常用配置
+{{{
+# 安全设置
+cgi.fix_pathinfo = 0
+
+# 隐藏 php
+expose_php = Off
+
+# 时区
+date.timezone = "Asia/Shanghai"
+
+# 错误提示
+display_error = Off	(生产机)
+display_error = On	(测试机)
+
+# 启用扩展
+# ...
+}}}
+}}}
