@@ -39,9 +39,10 @@ cp php.ini-production /usr/local/php/lib/php.ini
 cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
 
 # 修改 php.ini
-
+[#PHP_Ini_Example php.ini 常用配置]
 
 # 修改 php-fpm.conf
+[#PHP_FPM_Conf_Example php-fpm.conf 常用配置]
 }}}
 
 ----
@@ -114,3 +115,17 @@ display_error = On	(测试机)
 # 启用扩展
 # ...
 }}}
+
+== PHP FPM Conf Example ==
+php-fpm.conf 常用配置 ( /usr/local/php/etc/php-fpm.conf )
+{{{
+listen = 127.0.0.1:9000
+listen.allowed_clients = 127.0.0.1
+
+pm = static
+pm.max_children = 128    # 阅读配置文件, 根据系统内存大小修改数值
+}}}
+
+  * 参考文档
+    * Nginx 0.8.x + PHP 5.2.13（FastCGI）搭建胜过Apache十倍的Web服务器（第6版）
+      * http://blog.s135.com/nginx_php_v6/
