@@ -38,11 +38,9 @@ cp php.ini-production /usr/local/php/lib/php.ini
 # 复制 php-fpm.conf
 cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
 
-# 修改 php.ini
-`[#PHP_Ini_Example php.ini 常用配置]`
+# 修改 php.ini 
 
 # 修改 php-fpm.conf
-`[#PHP_FPM_Conf_Example php-fpm.conf 常用配置]`
 }}}
 
 ----
