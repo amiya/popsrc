@@ -45,7 +45,7 @@ cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
 
 = Upgrade =
 
-升级到 php-5.3.10
+前置条件
 {{{
 # 查看当前版本号
 /usr/local/php/bin/php -v
@@ -54,7 +54,35 @@ cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
 /usr/local/php/bin/php -i | grep configure
 
 # 停止 php (如果正在执行中)
+service php-fpm stop
 
+# 修改当前版本的目录名
+mv /usr/local/php/ /usr/local/php-old/
+}}}
 
-# 将当前
+升级到 php-5.3.10
+{{{
+cd /root/software
+wget http://cn.php.net/distributions/php-5.3.10.tar.gz
+tar zxvf php-5.3.10.tar.gz
+cd php-5.3.10
+
+# 使用旧版本的编译参数 (或者其它参数)
+./configure [编译参数]
+make && make install
+
+# 使用旧的 php.ini
+cp /usr/local/php-old/lib/php.ini /usr/local/php/lib/php.ini
+
+# 使用旧的 php-fpm.conf
+cp /usr/local/php-old/etc/php-fpm.conf /usr/local/php/etc/php-fpm.conf
+
+# 查看安装是否成功
+/usr/local/php/bin/php -v
+
+# 安装扩展
+# ...
+
+# 启动 fast cgi
+service php-fpm start
 }}}
