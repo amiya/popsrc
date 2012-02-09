@@ -1,0 +1,55 @@
+= 快速链接 =
+  * [#Install 安装]
+  * [#Upgrade 平滑升级]
+  * [#Manage 常用管理命令]
+  * [#Config 配置]
+    * [#Config_file 配置文件路径]
+    * [#Hide_version 隐藏版本号]
+    * [#Config_Example 常用配置]
+
+
+----
+
+= Install =
+
+前置条件
+{{{
+# 安装需要的第三方库
+yum -y install libxml2 libxml2-devel curl curl-devel libjpeg libjpeg-devel libpng libpng-devel libmcrypt libmcrypt-devel
+}}}
+
+安装 php-5.3.9 (fast cgi 方式)
+{{{
+mkdir -p /root/software
+cd /root/software
+wget http://cn.php.net/distributions/php-5.3.9.tar.gz
+tar zxvf php-5.3.9.tar.gz
+cd php-5.3.9
+./configure --prefix=/usr/local/php --enable-fpm --with-curl --with-mcrypt --enable-mbstring --with-iconv --with-gd --with-jpeg-dir --with-zlib --with-mysql=mysqlnd --with-mysqli=mysqlnd --enable-pdo --with-pdo-mysql=mysqlnd --enable-sockets --enable-pcntl --enable-shmop --enable-sysvsem --with-openssl
+make && make install
+
+# 复制 php.ini
+cp php.ini-production /usr/local/php/lib/php.ini
+
+# 复制 php-fpm.conf
+cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
+}}}
+
+
+----
+
+= Upgrade =
+
+升级到 php-5.3.10
+{{{
+# 查看当前版本号
+/usr/local/php/bin/php -v
+
+# 查看当前版本的编译参数
+/usr/local/php/bin/php -i | grep configure
+
+# 停止 php (如果正在执行中)
+
+
+# 将当前
+}}}
