@@ -224,19 +224,14 @@ http {
     keepalive_timeout  65;
 
 
+    # 执行 php 程序的后端服务器
+    upstream phpfpm {
+        server    127.0.0.1:9000;
+    }
+ 
+
     # 入口文件
     index  index.html index.php;
-
-
-    # 服务器状态
-    server {
-        listen       80;
-        server_name  status.example.com;
-        location / {
-            stub_status on;
-            access_log   off;
-        }
-    }
 
 
     # 主站
@@ -267,7 +262,7 @@ http {
         # 解析执行 php 文件
         location ~* \.php$ {
             try_files $uri =404;            # 若php文件不存在则直接 404
-            fastcgi_pass   127.0.0.1:9010;
+            fastcgi_pass   phpfpm;
             fastcgi_index  index.php;
             include        fastcgi.conf;
         }
@@ -283,6 +278,17 @@ http {
 
         location / {
             try_files $uri =404;
+        }
+    }
+
+
+    # 服务器状态
+    server {
+        listen       80;
+        server_name  status.example.com;
+        location / {
+            stub_status on;
+            access_log   off;
         }
     }
 }
