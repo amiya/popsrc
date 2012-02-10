@@ -180,6 +180,8 @@ extension=imagick.so
 == PHP FPM Conf Example ==
 php-fpm.conf 常用配置 ( /usr/local/php/etc/php-fpm.conf )
 {{{
+pid = run/php-fpm.pid
+
 listen = 127.0.0.1:9000
 listen.allowed_clients = 127.0.0.1
 
