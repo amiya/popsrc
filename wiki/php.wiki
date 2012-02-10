@@ -33,21 +33,21 @@ cd php-5.3.9
     --with-mcrypt \
     --with-iconv \
     --with-gd \
-    --with-jpeg-dir \
+        --with-jpeg-dir \
     --with-zlib \
     --with-openssl \
     --with-mysql=mysqlnd \
     --with-mysqli=mysqlnd \
     --enable-pdo \
-    --with-pdo-mysql=mysqlnd \
+        --with-pdo-mysql=mysqlnd \
+        --without-pdo-sqlite \
     --enable-mbstring \
     --enable-sockets \
     --enable-pcntl \
     --enable-shmop \
     --enable-sysvsem \
     --without-sqlite \
-    --without-sqlite3 \
-    --without-pdo-sqlite
+    --without-sqlite3
 
 # 编译、安装
 make && make install
@@ -107,21 +107,21 @@ cd php-5.3.10
     --with-mcrypt \
     --with-iconv \
     --with-gd \
-    --with-jpeg-dir \
+        --with-jpeg-dir \
     --with-zlib \
     --with-openssl \
     --with-mysql=mysqlnd \
     --with-mysqli=mysqlnd \
     --enable-pdo \
-    --with-pdo-mysql=mysqlnd \
+        --with-pdo-mysql=mysqlnd \
+        --without-pdo-sqlite \
     --enable-mbstring \
     --enable-sockets \
     --enable-pcntl \
     --enable-shmop \
     --enable-sysvsem \
     --without-sqlite \
-    --without-sqlite3 \
-    --without-pdo-sqlite
+    --without-sqlite3
 
 # 编译、安装
 make && make install
