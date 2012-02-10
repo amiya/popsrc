@@ -1,7 +1,7 @@
 = 快速链接 =
   * [#Install 安装]
   * [#Upgrade 升级]
-  * [#Manage 常用管理命令]
+  * [#Manage_PHP_FPM php-fpm 常用管理命令]
   * [#Config 配置]
     * [#PHP_Ini_Example php.ini 常用配置]
     * [#PHP_FPM_Conf_Example php-fpm.conf 常用配置]
@@ -149,6 +149,32 @@ service php-fpm start
 
 # 删除旧版本文件
 rm -fr /usr/local/php-old/
+}}}
+
+
+----
+
+= Manage PHP FPM =
+
+{{{
+# 查看全部可用命令
+/usr/local/php/sbin/php-fpm -h
+
+# 检查 php-fpm.conf 配置是否正确
+/usr/local/php/sbin/php-fpm -t
+
+# 启动
+service php-fpm start
+
+# 停止
+service php-fpm stop
+
+# 重启
+service php-fpm restart
+
+# 平滑修改配置 (重新载入 php-fpm.conf 和 php.ini)
+service php-fpm reload
+
 }}}
 
 
