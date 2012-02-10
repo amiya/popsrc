@@ -184,7 +184,6 @@ cd /root/software
 wget http://www.imagemagick.org/download/ImageMagick.tar.gz
 tar xvfz ImageMagick.tar.gz
 cd ImageMagick-6.7.5-3    # 注意这里的目录名称可能不一样
-./configure
 ./configure --prefix=/usr/local/imagemagick
 make
 make install
