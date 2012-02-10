@@ -24,7 +24,32 @@ cd /root/software
 wget http://cn.php.net/distributions/php-5.3.9.tar.gz
 tar zxvf php-5.3.9.tar.gz
 cd php-5.3.9
-./configure --prefix=/usr/local/php --enable-fpm --with-curl --with-mcrypt --enable-mbstring --with-iconv --with-gd --with-jpeg-dir --with-zlib --with-mysql=mysqlnd --with-mysqli=mysqlnd --enable-pdo --with-pdo-mysql=mysqlnd --enable-sockets --enable-pcntl --enable-shmop --enable-sysvsem --with-openssl
+
+# 配置编译参数
+./configure \
+    --prefix=/usr/local/php \
+    --enable-fpm \
+    --with-curl \
+    --with-mcrypt \
+    --enable-mbstring \
+    --with-iconv \
+    --with-gd \
+    --with-jpeg-dir \
+    --with-zlib \
+    --with-mysql=mysqlnd \
+    --with-mysqli=mysqlnd \
+    --enable-pdo \
+    --with-pdo-mysql=mysqlnd \
+    --enable-sockets \
+    --enable-pcntl \
+    --enable-shmop \
+    --enable-sysvsem \
+    --with-openssl \
+    --without-sqlite \
+    --without-sqlite3 \
+    --without-pdo-sqlite
+
+# 编译、安装
 make && make install
 
 # 复制 php-fpm 控制脚本
@@ -74,9 +99,33 @@ wget http://cn.php.net/distributions/php-5.3.10.tar.gz
 tar zxvf php-5.3.10.tar.gz
 cd php-5.3.10
 
-# 使用旧版本的编译参数 (或者其它参数)
-./configure [编译参数]
+# 配置编译参数(使用旧版本的编译参数, 或者其它参数)
+./configure \
+    --prefix=/usr/local/php \
+    --enable-fpm \
+    --with-curl \
+    --with-mcrypt \
+    --enable-mbstring \
+    --with-iconv \
+    --with-gd \
+    --with-jpeg-dir \
+    --with-zlib \
+    --with-mysql=mysqlnd \
+    --with-mysqli=mysqlnd \
+    --enable-pdo \
+    --with-pdo-mysql=mysqlnd \
+    --enable-sockets \
+    --enable-pcntl \
+    --enable-shmop \
+    --enable-sysvsem \
+    --with-openssl \
+    --without-sqlite \
+    --without-sqlite3 \
+    --without-pdo-sqlite
+
+# 编译、安装
 make && make install
+
 
 # 使用旧的 php.ini
 cp /usr/local/php-old/lib/php.ini /usr/local/php/lib/php.ini
