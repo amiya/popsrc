@@ -57,6 +57,7 @@ make && make install
 cp sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm
 chmod +x /etc/init.d/php-fpm    # 设置为可执行
 chkconfig --add php-fpm         # 设置为系统服务
+chkconfig php-fpm on            # 开机启动
 
 # 复制 php.ini
 cp php.ini-production /usr/local/php/lib/php.ini
