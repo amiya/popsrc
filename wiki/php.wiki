@@ -31,20 +31,20 @@ cd php-5.3.9
     --enable-fpm \
     --with-curl \
     --with-mcrypt \
-    --enable-mbstring \
     --with-iconv \
     --with-gd \
     --with-jpeg-dir \
     --with-zlib \
+    --with-openssl \
     --with-mysql=mysqlnd \
     --with-mysqli=mysqlnd \
     --enable-pdo \
     --with-pdo-mysql=mysqlnd \
+    --enable-mbstring \
     --enable-sockets \
     --enable-pcntl \
     --enable-shmop \
     --enable-sysvsem \
-    --with-openssl \
     --without-sqlite \
     --without-sqlite3 \
     --without-pdo-sqlite
@@ -105,20 +105,20 @@ cd php-5.3.10
     --enable-fpm \
     --with-curl \
     --with-mcrypt \
-    --enable-mbstring \
     --with-iconv \
     --with-gd \
     --with-jpeg-dir \
     --with-zlib \
+    --with-openssl \
     --with-mysql=mysqlnd \
     --with-mysqli=mysqlnd \
     --enable-pdo \
     --with-pdo-mysql=mysqlnd \
+    --enable-mbstring \
     --enable-sockets \
     --enable-pcntl \
     --enable-shmop \
     --enable-sysvsem \
-    --with-openssl \
     --without-sqlite \
     --without-sqlite3 \
     --without-pdo-sqlite
