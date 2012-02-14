@@ -1,0 +1,44 @@
+操作系统运行时间长后，系统时间跟实际时间就会相差越来越大，为了保证程序产生的数据正确，需要定期调整系统时间。
+
+----
+
+查看当前系统时间命令
+{{{
+date -R
+}}}
+
+查看当前主板硬件时间
+{{{
+hwclock --show
+}}}
+
+同步系统时间到实际时间
+{{{
+ntpdate 1.cn.pool.ntp.org
+
+# 备用服务器
+ntpdate asia.pool.ntp.org
+
+# 如果没有 ntpdate 命令可先安装
+yum install ntp
+}}}
+
+将新时间写入到硬件
+{{{
+hwclock --systohc
+}}}
+
+----
+
+设置定期自动同步系统时间
+
+修改 crontab
+{{{
+crontab -e
+}}}
+
+添加以下内容并保存
+{{{
+# 每天凌晨3点同步系统时间
+0 3 * * * ntpdate 1.cn.pool.ntp.org >> /var/log/ntpdate.log
+}}}
