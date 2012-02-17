@@ -89,7 +89,7 @@ mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.all
 vi /usr/local/nginx/conf/nginx.conf
 }}}
 
-nginx 新配置文件输入以下内容
+nginx 新配置文件输入以下内容并保存
 {{{
 
 user  nobody;
@@ -117,6 +117,14 @@ http {
 
 }}}
 
+重新启动 nginx
+{{{
+# 测试新配置文件是否有效
+/usr/local/nginx/sbin/nginx -t
+
+# 重新启动
+/usr/local/nginx/sbin/nginx -s reload
+}}}
 
 
 升级 php 前置工作
@@ -185,6 +193,19 @@ cp /usr/local/php-old/etc/php-fpm.conf /usr/local/php/etc/php-fpm.conf
 # 删除旧版本文件
 rm -fr /usr/local/php-old/
 }}}
+
+
+重新启动 nginx
+{{{
+mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.503
+mv /usr/local/nginx/conf/nginx.conf.all /usr/local/nginx/conf/nginx.conf
+
+/usr/local/nginx/sbin/nginx -t
+/usr/local/nginx/sbin/nginx -s reload
+}}}
+
+
+打开一个 phpinfo 页面检查升级是否成功
 
 
 ----
