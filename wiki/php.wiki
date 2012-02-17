@@ -72,6 +72,9 @@ cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
 
 # 修改 php-fpm.conf
 # ...
+
+# 方便调用 php 二进制文件
+ln -s /usr/local/php/bin/php /usr/bin/php
 }}}
 
 ----
