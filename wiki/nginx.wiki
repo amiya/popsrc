@@ -274,7 +274,7 @@ http {
         listen       80;
         server_name  upload.example.com;
         access_log   logs/upload.example.com.access.log  main;
-        root         /home/www/upload.example.com;    # 注意不能是主站的子目录，否则会存在安全问题
+        root         /home/www/upload.example.com;    # 注意不能是主站的子目录，否则可能会存在安全问题
 
         location / {
             try_files $uri =404;
