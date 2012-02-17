@@ -74,6 +74,9 @@ cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
 
 # 方便调用 php 二进制文件
 ln -s /usr/local/php/bin/php /usr/bin/php
+
+# 安装第三方扩展
+# ...
 }}}
 
 ----
@@ -192,6 +195,9 @@ cp /usr/local/php-old/etc/php-fpm.conf /usr/local/php/etc/php-fpm.conf
 
 # 删除旧版本文件
 rm -fr /usr/local/php-old/
+
+# 安装第三方扩展
+# ...
 }}}
 
 
