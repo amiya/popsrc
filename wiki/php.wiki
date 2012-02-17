@@ -251,15 +251,11 @@ service php-fpm reload
 前置条件
 {{{
 cd /root/software
-wget http://www.imagemagick.org/download/ImageMagick.tar.gz
-# 若安装最新版本的时候出现问题，可安装以下版本
-# wget http://www.imagemagick.org/download/legacy/ImageMagick-6.7.2-10.tar.gz
+wget http://www.imagemagick.org/download/legacy/ImageMagick-6.7.2-10.tar.gz
 tar xvfz ImageMagick.tar.gz
-cd ImageMagick-6.7.5-3    # 注意这里的目录名称可能不一样
+cd ImageMagick-6.7.2-10    # 注意这里的目录名称可能不一样
 ./configure
-make
-make install
-
+make && make install
 }}}
 
 安装
