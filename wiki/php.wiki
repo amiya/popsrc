@@ -13,8 +13,42 @@
 
 = Install =
 
-安装之前
-  为了避免
+安装之前先设置 nginx 对所有请求直接输出 http 503 错误代码
+  {{{
+# 备份现有 nginx 配置文件
+mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.all
+
+# 创建新配置文件
+vi /usr/local/nginx/conf/nginx.conf
+  }}}
+
+  新配置文件输入以下内容
+  {{{
+user  nobody;
+worker_processes  1;
+
+error_log  logs/error.log;
+
+pid        logs/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    server {
+        listen       80;
+
+        location / {
+            return 503;  # 对全部请求直接返回 http 503 错误代码
+        }
+    }
+}
+  }}}
+
+
 
 前置条件
 {{{
