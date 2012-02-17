@@ -193,9 +193,6 @@ cp /usr/local/php-old/etc/php-fpm.conf /usr/local/php/etc/php-fpm.conf
 # 检查是否安装成功
 # ...
 
-# 删除旧版本文件
-rm -fr /usr/local/php-old/
-
 # 安装第三方扩展
 # ...
 }}}
@@ -213,6 +210,11 @@ mv /usr/local/nginx/conf/nginx.conf.all /usr/local/nginx/conf/nginx.conf
 
 打开一个 phpinfo 页面检查升级是否成功
 
+
+删除 php 旧版本文件
+{{{
+rm -fr /usr/local/php-old/
+}}}
 
 ----
 
