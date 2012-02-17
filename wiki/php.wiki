@@ -13,45 +13,6 @@
 
 = Install =
 
-安装之前先设置 nginx 对所有请求直接输出 http 503 错误代码
-{{{
-# 备份现有 nginx 配置文件
-mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.all
-
-# 创建新配置文件
-vi /usr/local/nginx/conf/nginx.conf
-}}}
-
-nginx 新配置文件输入以下内容
-{{{
-
-user  nobody;
-worker_processes  1;
-
-error_log  logs/error.log;
-
-pid        logs/nginx.pid;
-
-
-events {
-    worker_connections  1024;
-}
-
-
-http {
-    server {
-        listen       80;
-
-        location / {
-            return 503;  # 对全部请求直接返回 http 503 错误代码
-        }
-    }
-}
-
-}}}
-
-
-
 安装编译 php 需要的第三方库
 {{{
 yum -y install libxml2 libxml2-devel curl curl-devel libjpeg libjpeg-devel libpng libpng-devel libmcrypt libmcrypt-devel
@@ -119,7 +80,46 @@ ln -s /usr/local/php/bin/php /usr/bin/php
 
 = Upgrade =
 
-前置条件
+升级 php 之前先设置 nginx 对所有请求直接输出 http 503 错误代码
+{{{
+# 备份现有 nginx 配置文件
+mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.all
+
+# 创建新配置文件
+vi /usr/local/nginx/conf/nginx.conf
+}}}
+
+nginx 新配置文件输入以下内容
+{{{
+
+user  nobody;
+worker_processes  1;
+
+error_log  logs/error.log;
+
+pid        logs/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    server {
+        listen       80;
+
+        location / {
+            return 503;  # 对全部请求直接返回 http 503 错误代码
+        }
+    }
+}
+
+}}}
+
+
+
+升级 php 前置工作
 {{{
 # 查看当前版本号
 /usr/local/php/bin/php -v
