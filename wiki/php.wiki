@@ -14,13 +14,13 @@
 = Install =
 
 安装之前先设置 nginx 对所有请求直接输出 http 503 错误代码
-  {{{
+{{{
 # 备份现有 nginx 配置文件
 mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.all
 
 # 创建新配置文件
 vi /usr/local/nginx/conf/nginx.conf
-  }}}
+}}}
 
   新配置文件输入以下内容
 {{{
