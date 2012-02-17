@@ -132,7 +132,7 @@ http {
 # 查看当前版本号
 /usr/local/php/bin/php -v
 
-# 查看当前版本的编译参数
+# 查看当前版本的编译参数并记录下来
 /usr/local/php/bin/php -i | grep configure
 
 # 停止 php (如果正在执行中)
