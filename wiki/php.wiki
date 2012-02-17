@@ -23,7 +23,8 @@ vi /usr/local/nginx/conf/nginx.conf
   }}}
 
   新配置文件输入以下内容
-  {{{
+{{{
+
 user  nobody;
 worker_processes  1;
 
@@ -46,7 +47,8 @@ http {
         }
     }
 }
-  }}}
+
+}}}
 
 
 
