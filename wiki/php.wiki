@@ -52,9 +52,8 @@ http {
 
 
 
-前置条件
+安装编译 php 需要的第三方库
 {{{
-# 安装需要的第三方库
 yum -y install libxml2 libxml2-devel curl curl-devel libjpeg libjpeg-devel libpng libpng-devel libmcrypt libmcrypt-devel
 }}}
 
