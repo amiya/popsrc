@@ -22,7 +22,7 @@ mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.all
 vi /usr/local/nginx/conf/nginx.conf
 }}}
 
-新配置文件输入以下内容
+nginx 新配置文件输入以下内容
 {{{
 
 user  nobody;
