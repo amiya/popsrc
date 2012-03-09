@@ -19,8 +19,11 @@
 
 = PCRE =
   * http://www.pcre.org/
-  * ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.21.tar.gz
-  * http://nchc.dl.sourceforge.net/project/pcre/pcre/8.21/pcre-8.21.tar.gz
+  * v8.21
+    * ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.21.tar.gz
+    * http://nchc.dl.sourceforge.net/project/pcre/pcre/8.21/pcre-8.21.tar.gz
+  * v8.30
+    * ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.30.tar.gz
 
 = CMake =
   * http://www.cmake.org/
