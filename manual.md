@@ -1,0 +1,9 @@
+# W3school 手册 chm 编译版 #
+  * http://witmax.cn/w3school-chm-2.html
+
+# jQuery #
+  * http://code.google.com/p/jquery-api-zh-cn/
+  * http://api.jquery.com/api/
+  * http://www.exfer.net/jquery/createjQueryXMLDocs.py
+  * http://view.jquery.com/trunk/tools/wikiapi2xml/README
+  * http://view.jquery.com/trunk/tools/wikiapi2xml/

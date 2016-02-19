@@ -1,0 +1,165 @@
+# 快速链接 #
+
+  * [Install packages for CentOS 6.0 Minimal](#Install_packages_for_CentOS_6.0_Minimal.md)
+  * [Disabling IPv6](#Disabling_IPv6.md)
+  * [Network Connection Setup](#Network_Connection_Setup.md)
+  * [DNS Setup](#DNS_Setup.md)
+  * [yum Repo Setup](#yum_Repo_Setup.md)
+  * [FAQ](#FAQ.md)
+    * [FAQ wget speed up](#FAQ_wget_speed_up.md)
+
+
+---
+
+
+# Install packages for CentOS 6.0 Minimal #
+
+安装基础东西
+```
+yum -y install man file wget vim
+```
+
+安装编译源代码需要的工具
+```
+yum -y install autoconf make
+```
+
+
+
+---
+
+
+# Disabling IPv6 #
+
+## Step 1 ##
+打开以下文件
+```
+vi /etc/sysconfig/network
+```
+修改 NETWORKING\_IPV6 一行如下(如果没有则加入) 并保存
+```
+NETWORKING_IPV6=no
+```
+
+## Step 2 ##
+创建以下文件
+```
+vi /etc/modprobe.d/ipv6.conf
+```
+输入以下内容并保存
+```
+alias net-pf-10 off
+alias ipv6 off
+```
+
+## Step 3 ##
+执行以下 shell 命令来关闭 ipv6 服务
+```
+service ip6tables stop
+chkconfig ip6tables off
+```
+
+## Step 4 ##
+重启系统并检查是否成功关闭了 ipv6
+```
+# 使用ifconfig查看自己的IP地址是否含有IPv6地址
+ifconfig
+
+# 查看服务监听的IP中是否有IPv6格式的地址
+netstat -tuln
+
+# 查看ipv6的模块是否被加载
+lsmod | grep ipv6
+```
+
+## 参考文档 ##
+  * Disabling IPV6 on Centos6
+    * http://serverfault.com/questions/314432/disabling-ipv6-on-centos6
+  * How do I disable IPv6
+    * http://wiki.centos.org/FAQ/CentOS6#head-d47139912868bcb9d754441ecb6a8a10d41781df
+  * Centos/Redhat中关闭IPV6
+    * http://blog.chinaunix.net/space.php?uid=20542054&do=blog&cuid=474768
+  * RedHat / Centos Disable IPv6 Networking
+    * http://www.cyberciti.biz/faq/redhat-centos-disable-ipv6-networking/
+
+
+
+---
+
+
+
+# Network Connection Setup #
+
+打开以下文件
+```
+vi /etc/sysconfig/network-scripts/ifcfg-eth0
+```
+输入以下内容并保存 (设置静态 IP)
+```
+DEVICE=eth0
+BOOTPROTO=static
+HWADDR=00:03:47:2C:D5:40
+ONBOOT=yes
+TYPE=Ethernet
+IPADDR=192.168.1.223
+NETMASK=255.255.255.0
+GATEWAY=192.168.1.1
+```
+
+
+
+---
+
+
+
+# DNS Setup #
+
+打开以下文件
+```
+vi /etc/resolv.conf
+```
+输入以下内容并保存
+```
+nameserver 202.96.128.166
+```
+
+
+
+---
+
+
+
+# yum Repo Setup #
+
+将 163 设置为 yum 源的方法如下
+```
+cd /etc/yum.repos.d/
+mv CentOS-Base.repo CentOS-Base.repo.backup
+wget http://mirrors.163.com/.help/CentOS6-Base-163.repo
+yum makecache
+```
+
+  * 参考文档
+    * CentOS镜像使用帮助
+      * http://mirrors.163.com/.help/centos.html
+    * 配置RHEL，CentOS yum本地源
+      * http://www.unixbar.net/linux/centos/956.html
+
+
+
+---
+
+
+
+# FAQ #
+
+## FAQ wget speed up ##
+打开以下文件
+```
+vi ~/.bashrc
+```
+添加以下内容并保存
+```
+# 强制 wget 使用 ipv4
+alias wget='wget -4'
+```

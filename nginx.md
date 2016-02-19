@@ -1,0 +1,318 @@
+# 快速链接 #
+  * [安装](#Install.md)
+  * [平滑升级](#Upgrade.md)
+  * [常用管理命令](#Manage.md)
+  * [配置](#Config.md)
+    * [配置文件路径](#Config_file.md)
+    * [隐藏版本号](#Hide_version.md)
+    * [启用 Gzip 压缩输出](#Gzip_output.md)
+    * [优化 CPU](#Optimize_CPU.md)
+    * [完整配置示例](#Config_Example.md)
+
+
+
+---
+
+
+# Install #
+
+前置条件
+```
+# https 需要
+yum -y install openssl openssl-devel
+
+# 安装 pcre 库
+mkdir -p /root/software
+cd /root/software
+wget http://nchc.dl.sourceforge.net/project/pcre/pcre/8.21/pcre-8.21.tar.gz
+tar zxvf pcre-8.21.tar.gz
+cd pcre-8.21
+./configure
+make && make install
+```
+
+安装 nginx-1.0.11
+```
+mkdir -p /root/software
+cd /root/software
+wget http://nginx.org/download/nginx-1.0.11.tar.gz
+tar zxvf nginx-1.0.11.tar.gz
+cd nginx-1.0.11
+./configure --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module
+make
+make install
+```
+
+  * 参考文档
+    * Install
+      * http://wiki.nginx.org/Install
+    * Installation and compile-time options
+      * http://wiki.nginx.org/InstallOptions
+
+
+
+---
+
+
+# Upgrade #
+
+升级到 nginx-1.0.12
+```
+# 查看当前版本的编译参数
+/usr/local/nginx/sbin/nginx -V
+
+# 备份现时二进制文件
+mv /usr/local/nginx/sbin/nginx /usr/local/nginx/sbin/nginx.old
+
+# 下载新版本、编译出二进制文件 (编译后注意不要 make install)
+mkdir -p /root/software
+cd /root/software
+wget http://nginx.org/download/nginx-1.0.12.tar.gz
+tar zxvf nginx-1.0.12.tar.gz
+cd nginx-1.0.12
+# 注意编译参数要正确
+./configure --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module
+make
+cp objs/nginx /usr/local/nginx/sbin/nginx
+
+# 测试新二进制文件是否成功
+/usr/local/nginx/sbin/nginx -t
+
+# 给 nginx 发送升级指令
+kill -USR2 `cat /usr/local/nginx/logs/nginx.pid`
+
+# 退出旧的 nignx
+kill -QUIT `cat /usr/local/nginx/logs/nginx.pid.oldbin`
+
+# 升级后再查看下新版本
+/usr/local/nginx/sbin/nginx -V
+
+# 删除旧的二进制文件
+rm -f /usr/local/nginx/sbin/nginx.old
+
+```
+
+  * 参考文档
+    * Upgrading To a New Binary On The Fly
+      * http://wiki.nginx.org/NginxCommandLine#Upgrading_To_a_New_Binary_On_The_Fly
+
+
+
+---
+
+
+# Manage #
+```
+# 查看全部可用命令
+/usr/local/nginx/sbin/nginx -h
+
+# 查看版本信息
+/usr/local/nginx/sbin/nginx -v
+
+# 查看版本及编译参数等信息
+/usr/local/nginx/sbin/nginx -V
+
+# 检查配置是否正确
+/usr/local/nginx/sbin/nginx -t
+
+# 启动
+/usr/local/nginx/sbin/nginx
+
+# 正常退出 (完成全部请求后再退出)
+/usr/local/nginx/sbin/nginx -s quit
+
+# 立即退出 (即使有请求正在执行也立即退出)
+/usr/local/nginx/sbin/nginx -s stop
+
+# 重新启动 (平滑修改配置)
+/usr/local/nginx/sbin/nginx -s reload
+```
+
+  * 参考文档
+    * `CommandLine`
+      * http://wiki.nginx.org/NginxCommandLine
+    * 按日切割日志
+      * http://zhys9.com/blog/?p=334
+      * http://my.oschina.net/doraemon/blog/12304
+
+
+
+---
+
+
+# Config #
+
+## Config file ##
+```
+# 配置文件路径
+/usr/local/nginx/conf/nginx.conf
+```
+
+## Hide version ##
+在 http {} 加入
+```
+server_tokens       off;    # http header 不输出 nginx 版本号
+```
+
+## Gzip output ##
+在 http {} 或 server {} 或 location {} 加入
+```
+gzip on;
+gzip_min_length  2048;
+gzip_buffers     4 8k;
+gzip_http_version 1.1;
+gzip_types       text/plain application/x-javascript text/css application/xml;
+gzip_disable     "MSIE [1-6]\.";	# 对 IE 1-6 取消 gzip 输出
+```
+
+  * 参考文档
+    * `HttpGzipModule`
+      * http://wiki.nginx.org/HttpGzipModule
+
+## Optimize CPU ##
+```
+# 查看当前机器 CPU 数
+cat /proc/cpuinfo | grep processor
+```
+
+在全局配置头部加入
+```
+# 4核心 CPU 使用以下配置
+worker_processes  4;
+worker_cpu_affinity 0001 0010 0100 1000;
+
+# 8核心 CPU 使用以下配置
+worker_processes 8;
+worker_cpu_affinity 00000001 00000010 00000100 00001000 00010000 00100000 01000000 10000000;
+```
+
+  * 参考文档
+    * worker\_processes
+      * http://wiki.nginx.org/CoreModule#worker_processes
+    * worker\_cpu\_affinity
+      * http://wiki.nginx.org/CoreModule#worker_cpu_affinity
+    * Nginx 优化：CPU
+      * http://www.reistlin.com/blog/176
+    * 关于Nginx的一些优化(突破十万并发)
+      * http://www.howtocn.org/nginx:%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AA%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84nginx_fastcgi%E6%9C%8D%E5%8A%A1%E5%99%A8
+
+
+## Config Example ##
+完整配置示例
+```
+
+user  nobody;
+worker_processes  4;
+worker_cpu_affinity 0001 0010 0100 1000;
+
+error_log  logs/error.log  error;
+
+pid        logs/nginx.pid;
+
+
+events {
+    use epoll;
+    worker_connections  1024;
+}
+
+
+http {
+    server_tokens   off;    # http header 不输出 nginx 版本号
+
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main    '$remote_addr - $remote_user [$time_local] "$request" '
+                        '$status $body_bytes_sent "$http_referer" '
+                        '"$http_user_agent" "$http_x_forwarded_for"';
+
+    sendfile        on;
+    tcp_nopush      on;
+
+    keepalive_timeout  65;
+
+
+    # 执行 php 程序的后端服务器
+    upstream phpfpm {
+        server    127.0.0.1:9000;
+    }
+ 
+
+    # 入口文件
+    index  index.html index.php;
+
+
+    # 主站
+    server {
+        listen       80;
+        server_name  www.example.com  abc.com;
+        access_log   logs/www.example.com.access.log  main;
+        root         /home/www/www.example.com;
+        
+        # 压缩输出 js, css, html, xml 类型的内容
+        gzip on;
+        gzip_min_length  1000;
+        gzip_buffers     4 8k;
+        gzip_types       text/plain text/css application/xml application/x-javascript;
+        gzip_disable     "MSIE [1-6]\.";        # 对 IE 1-6 取消 gzip 输出
+
+        location / {
+            try_files $uri /index.php?$uri&$args;    # 若文件不存在，则将请求转发到 /index.php
+        }
+
+        location ^~ /upload/ {
+            # 禁止解析执行上传目录里面的 php 文件
+            if ($request_uri ~* \.php$) {
+               return 403;
+            }
+        }
+
+        # 解析执行 php 文件
+        location ~* \.php$ {
+            try_files $uri =404;            # 若php文件不存在则直接 404
+            fastcgi_pass   phpfpm;
+            fastcgi_index  index.php;
+            include        fastcgi.conf;
+        }
+    }
+
+
+    # 静态内容(上传目录)
+    server {
+        listen       80;
+        server_name  upload.example.com;
+        access_log   logs/upload.example.com.access.log  main;
+        root         /home/www/upload.example.com;    # 注意不能是主站的子目录，否则可能会存在安全问题
+
+        location / {
+            try_files $uri =404;
+        }
+    }
+
+
+    # 服务器状态
+    server {
+        listen       80;
+        server_name  status.example.com;
+        location / {
+            stub_status on;
+            access_log   off;
+        }
+    }
+}
+
+```
+
+
+  * 参考文档
+    * Nginx Pitfalls
+      * http://wiki.nginx.org/Pitfalls
+    * `HttpCoreModule`
+      * http://wiki.nginx.org/NginxHttpCoreModule
+    * `NginxHttpCoreModule :: location`
+      * http://wiki.nginx.org/NginxHttpCoreModule#location
+    * `NginxHttpCoreModule :: try_files`
+      * http://wiki.nginx.org/NginxHttpCoreModule#try_files
+    * Using Yii with Nginx and PHP-FPM
+      * http://www.yiiframework.com/wiki/153/using-yii-with-nginx-and-php-fpm/
+

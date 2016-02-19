@@ -1,0 +1,323 @@
+# 快速链接 #
+  * [安装](#Install.md)
+  * [升级](#Upgrade.md)
+  * [php-fpm 常用管理命令](#Manage_PHP_FPM.md)
+  * [安装第三方扩展](#Install_Third-Party_Extensions.md)
+    * [安装 imagick](#Install_imagick.md)
+  * [配置](#Config.md)
+    * [php.ini 常用配置](#PHP_Ini_Example.md)
+    * [php-fpm.conf 常用配置](#PHP_FPM_Conf_Example.md)
+
+
+
+---
+
+
+# Install #
+
+安装编译 php 需要的第三方库
+```
+yum -y install libxml2 libxml2-devel curl curl-devel libjpeg libjpeg-devel libpng libpng-devel libmcrypt libmcrypt-devel
+```
+
+安装 php-5.3.9 (fast cgi 方式)
+```
+mkdir -p /root/software
+cd /root/software
+wget http://cn.php.net/distributions/php-5.3.9.tar.gz
+tar zxvf php-5.3.9.tar.gz
+cd php-5.3.9
+
+# 配置编译参数
+./configure \
+    --prefix=/usr/local/php \
+    --enable-fpm \
+    --with-curl \
+    --with-mcrypt \
+    --with-iconv \
+    --with-gd \
+        --with-jpeg-dir \
+        --with-png-dir \
+    --with-zlib \
+    --with-openssl \
+    --with-mysql=mysqlnd \
+    --with-mysqli=mysqlnd \
+    --enable-pdo \
+        --with-pdo-mysql=mysqlnd \
+        --without-pdo-sqlite \
+    --enable-mbstring \
+    --enable-sockets \
+    --enable-pcntl \
+    --enable-shmop \
+    --enable-sysvsem \
+    --without-sqlite \
+    --without-sqlite3
+
+# 编译、安装
+make && make install
+
+# 复制 php-fpm 控制脚本
+cp sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm
+chmod +x /etc/init.d/php-fpm    # 设置为可执行
+chkconfig --add php-fpm         # 设置为系统服务
+chkconfig php-fpm on            # 开机启动
+
+# 复制 php.ini
+cp php.ini-production /usr/local/php/lib/php.ini
+
+# 复制 php-fpm.conf
+cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
+
+# 修改 php.ini 
+# ...
+
+# 修改 php-fpm.conf
+# ...
+
+# 方便调用 php 二进制文件
+ln -s /usr/local/php/bin/php /usr/bin/php
+
+# 安装第三方扩展
+# ...
+```
+
+
+---
+
+
+# Upgrade #
+
+升级 php 之前先设置 nginx 对所有请求直接输出 http 503 错误代码
+```
+# 备份现有 nginx 配置文件
+mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.all
+
+# 创建新配置文件
+vi /usr/local/nginx/conf/nginx.conf
+```
+
+nginx 新配置文件输入以下内容并保存
+```
+
+user  nobody;
+worker_processes  1;
+
+error_log  logs/error.log;
+
+pid        logs/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    server {
+        listen       80;
+
+        location / {
+            return 503;  # 对全部请求直接返回 http 503 错误代码
+        }
+    }
+}
+
+```
+
+重新启动 nginx
+```
+# 测试新配置文件是否有效
+/usr/local/nginx/sbin/nginx -t
+
+# 重新启动
+/usr/local/nginx/sbin/nginx -s reload
+```
+
+
+升级 php 前置工作
+```
+# 查看当前版本号
+/usr/local/php/bin/php -v
+
+# 查看当前版本的编译参数并记录下来
+/usr/local/php/bin/php -i | grep configure
+
+# 停止 php (如果正在执行中)
+service php-fpm stop
+
+# 修改当前版本的目录名
+mv /usr/local/php/ /usr/local/php-old/
+```
+
+升级到 php-5.3.10 (fast cgi 方式)
+```
+cd /root/software
+wget http://cn.php.net/distributions/php-5.3.10.tar.gz
+tar zxvf php-5.3.10.tar.gz
+cd php-5.3.10
+
+# 配置编译参数(使用旧版本的编译参数, 或者其它参数)
+./configure \
+    --prefix=/usr/local/php \
+    --enable-fpm \
+    --with-curl \
+    --with-mcrypt \
+    --with-iconv \
+    --with-gd \
+        --with-jpeg-dir \
+        --with-png-dir \
+    --with-zlib \
+    --with-openssl \
+    --with-mysql=mysqlnd \
+    --with-mysqli=mysqlnd \
+    --enable-pdo \
+        --with-pdo-mysql=mysqlnd \
+        --without-pdo-sqlite \
+    --enable-mbstring \
+    --enable-sockets \
+    --enable-pcntl \
+    --enable-shmop \
+    --enable-sysvsem \
+    --without-sqlite \
+    --without-sqlite3
+
+# 编译、安装
+make && make install
+
+
+# 使用旧的 php.ini
+cp /usr/local/php-old/lib/php.ini /usr/local/php/lib/php.ini
+
+# 使用旧的 php-fpm.conf
+cp /usr/local/php-old/etc/php-fpm.conf /usr/local/php/etc/php-fpm.conf
+
+# 查看安装是否成功
+/usr/local/php/bin/php -v
+
+# 检查是否安装成功
+# ...
+
+# 安装第三方扩展
+# ...
+```
+
+
+重新启动 nginx
+```
+mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.503
+mv /usr/local/nginx/conf/nginx.conf.all /usr/local/nginx/conf/nginx.conf
+
+/usr/local/nginx/sbin/nginx -t
+/usr/local/nginx/sbin/nginx -s reload
+```
+
+
+打开一个 phpinfo 页面检查升级是否成功
+
+
+删除 php 旧版本文件
+```
+rm -fr /usr/local/php-old/
+```
+
+
+---
+
+
+# Manage PHP FPM #
+
+```
+# 查看全部可用命令
+/usr/local/php/sbin/php-fpm -h
+
+# 检查 php-fpm.conf 配置是否正确
+/usr/local/php/sbin/php-fpm -t
+
+# 启动
+service php-fpm start
+
+# 停止
+service php-fpm stop
+
+# 重启
+service php-fpm restart
+
+# 平滑修改配置 (重新载入 php-fpm.conf 和 php.ini)
+service php-fpm reload
+
+```
+
+
+
+---
+
+
+# Install Third-Party Extensions #
+
+## Install imagick ##
+
+前置条件
+```
+cd /root/software
+wget http://www.imagemagick.org/download/legacy/ImageMagick-6.7.2-10.tar.gz
+tar xvfz ImageMagick.tar.gz
+cd ImageMagick-6.7.2-10    # 注意这里的目录名称可能不一样
+./configure
+make && make install
+```
+
+安装
+```
+cd /root/software
+wget http://pecl.php.net/get/imagick-3.0.1.tgz
+tar zxvf imagick-3.0.1.tgz
+cd imagick-3.0.1
+/usr/local/php/bin/phpize
+./configure --with-php-config=/usr/local/php/bin/php-config
+make && make install
+```
+
+
+
+---
+
+
+# Config #
+
+## PHP Ini Example ##
+php.ini 常用配置 ( /usr/local/php/lib/php.ini )
+```
+# 安全设置
+cgi.fix_pathinfo = 0
+
+# 隐藏 php
+expose_php = Off
+
+# 时区
+date.timezone = "Asia/Shanghai"
+
+# 错误提示
+display_error = Off	(生产机)
+display_error = On	(测试机)
+
+# 启用扩展
+extension=imagick.so
+# ...
+```
+
+## PHP FPM Conf Example ##
+php-fpm.conf 常用配置 ( /usr/local/php/etc/php-fpm.conf )
+```
+# 设置如下，否则无法使用 service php-fpm {start|stop|force-quit|restart|reload}
+pid = run/php-fpm.pid
+
+listen = 127.0.0.1:9000
+listen.allowed_clients = 127.0.0.1
+
+pm = static
+pm.max_children = 128    # 阅读配置文件, 根据系统内存大小修改数值
+```
+
+  * 参考文档
+    * Nginx 0.8.x + PHP 5.2.13（FastCGI）搭建胜过Apache十倍的Web服务器（第6版）
+      * http://blog.s135.com/nginx_php_v6/

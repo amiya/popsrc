@@ -1,0 +1,416 @@
+# 特别注意 #
+  * 本文档是关于在 CentOS 5.5 下通过源代码安装 MySQL 的方法, 未在其它操作系统测试。
+  * MySQL 将通过源代码编译安装在 /usr/local/mysql
+  * MySQL 配置文件路径将放在 /etc/my.cnf
+  * 将以系统用户 mysql 身份运行 MySQL Server
+
+# 快速链接 #
+  * [MySQL Server Management](mysql#MySQL_Server_Management.md)
+    * [Start Server](mysql#Start_Server.md)
+    * [Stop Server](mysql#Stop_Server.md)
+    * [Login Server](mysql#Login_Server.md)
+    * [Starting and Stopping MySQL Automatically](mysql#Starting_and_Stopping_MySQL_Automatically.md)
+    * [How to Reset the Root Password](mysql#How_to_Reset_the_Root_Password.md)
+    * [Securing the Initial MySQL Accounts](mysql#Securing_the_Initial_MySQL_Accounts.md)
+    * [Backup Data](mysql#Backup_Data.md)
+    * [Import Data](mysql#Import_Data.md)
+  * [MySQL Database Management](mysql#MySQL_Database_Management.md)
+    * [SHOW DATABASES](mysql#SHOW_DATABASES.md)
+    * [CREATE DATABASE](mysql#CREATE_DATABASE.md)
+    * [DROP DATABASE](mysql#DROP_DATABASE.md)
+    * [CREATE USER](mysql#CREATE_USER.md)
+    * [Delete User](mysql#Delete_User.md)
+    * [Edit User Password](mysql#Edit_User_Password.md)
+    * [Grant User Database](mysql#Grant_User_Database.md)
+  * [how to install mysql server 5.1.58](mysql#how_to_install_mysql_server_5.1.58.md)
+  * [how to install mysql server 5.5.15](mysql#how_to_install_mysql_server_5.5.15.md)
+  * [how to install multi mysql server 5.5.15](mysql#how_to_install_multi_mysql_server_5.5.15.md)
+  * [FAQ](mysql#FAQ.md)
+
+# 参考文档 #
+  * Using Option Files (MySQL 配置文件说明)
+    * http://dev.mysql.com/doc/refman/5.5/en/option-files.html
+  * Running Multiple MySQL Instances on One Machine
+    * http://dev.mysql.com/doc/refman/5.5/en/multiple-servers.html
+  * Running Multiple MySQL Instances on Unix
+    * http://dev.mysql.com/doc/refman/5.5/en/multiple-unix-servers.html
+  * Nginx 0.8.x + PHP 5.2.13（FastCGI）搭建胜过Apache十倍的Web服务器（第6版）
+    * http://blog.s135.com/nginx_php_v6/
+
+
+
+
+---
+
+
+# MySQL Server Management #
+
+## Start Server ##
+```
+# 手工启动 mysql
+/usr/local/mysql/bin/mysqld_safe --user=mysql &
+```
+  * 参考文档
+    * mysqld\_safe — MySQL Server Startup Script
+      * http://dev.mysql.com/doc/refman/5.5/en/mysqld-safe.html
+
+## Stop Server ##
+```
+# 手工停止 mysql
+/usr/local/mysql/bin/mysqladmin -u root -p shutdown
+```
+  * 参考文档
+    * mysqladmin — Client for Administering a MySQL Server
+      * http://dev.mysql.com/doc/refman/5.5/en/mysqladmin.html
+
+## Login Server ##
+```
+# 以 root 用户登录 mysql server (接下来将提示输入密码)
+/usr/local/mysql/bin/mysql -u root -p
+```
+
+## Starting and Stopping MySQL Automatically ##
+```
+# 设置 mysql server 随系统启动和关闭
+cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysql.server
+ln -s /etc/init.d/mysql.server /etc/rc3.d/S99mysql
+ln -s /etc/init.d/mysql.server /etc/rc0.d/K01mysql
+```
+  * 参考文档
+    * Starting and Stopping MySQL Automatically
+      * http://dev.mysql.com/doc/refman/5.5/en/automatic-start.html
+
+## How to Reset the Root Password ##
+```
+# 先停止 mysql server
+service mysqld stop
+
+vim /usr/local/mysql/mysql-init.sql
+# 输入下面内容并保存
+```
+```
+# 下面的 12345678 是密码
+GRANT ALL ON *.* TO 'root'@'localhost' IDENTIFIED BY '12345678' WITH GRANT OPTION;
+GRANT ALL ON *.* TO 'root'@'127.0.0.1' IDENTIFIED BY '12345678' WITH GRANT OPTION;
+```
+
+```
+# 启动 mysql server
+/usr/local/mysql/mysqld_safe --init-file=/usr/local/mysql/mysql-init.sql &
+
+# 删除以下文件
+rm -f /usr/local/mysql/mysql-init.sql
+```
+  * 参考文档
+    * How to Reset the Root Password
+      * http://dev.mysql.com/doc/refman/5.5/en/resetting-permissions.html
+
+## Securing the Initial MySQL Accounts ##
+  * 首次安装好 mysql 后需要先做好安全工作
+  * [登录 mysql server](mysql#Login_Server.md) (备注：root 用户初始密码为空)
+  * 执行以下 SQL 语句
+```
+/* 列出当前已有用户 */
+SELECT user, host, password FROM mysql.user;
+
+/* 删除匿名用户和没有密码的用户 */
+DELETE FROM mysql.user WHERE user = "" OR password = "";
+
+/* 去掉默认允许的全部用户对 test 前缀的数据库的访问权限 */
+DELETE FROM mysql.db WHERE Db LIKE 'test%' AND user = "";
+
+/* 重新创建一个具有全部权限的超级用户（root）和密码（12345678） */
+GRANT ALL ON *.* TO 'root'@'localhost' IDENTIFIED BY '12345678' WITH GRANT OPTION;
+GRANT ALL ON *.* TO 'root'@'127.0.0.1' IDENTIFIED BY '12345678' WITH GRANT OPTION;
+
+/* 令以上操作立即生效 */
+FLUSH PRIVILEGES;
+```
+  * 参考文档
+    * Securing the Initial MySQL Accounts
+      * http://dev.mysql.com/doc/refman/5.5/en/default-privileges.html
+
+## Backup Data ##
+```
+# 导出指定数据库的表结构和数据
+/usr/local/mysql/bin/mysqldump -u root -p --skip-add-drop-table website_db > /tmp/website_db.sql
+
+# 导出指定数据库的表结构
+/usr/local/mysql/bin/mysqldump -u root -p --skip-add-drop-table --no-data website_db > /tmp/website_db.sql
+
+# 导出指定数据库的数据
+/usr/local/mysql/bin/mysqldump -u root -p --no-create-info website_db > /tmp/website_db.sql
+
+# 导出一个或多个数据表的表结构和数据 (从数据库 website_db 中导出 tbl_user 表和 tbl_admin 表)
+/usr/local/mysql/bin/mysqldump -u root -p --skip-add-drop-table website_db tbl_user tbl_admin > /tmp/multi-tables.sql
+
+# 导出全部数据库的表结构和数据
+/usr/local/mysql/bin/mysqldump -u root -p --all-databases > /tmp/all-db.sql
+```
+  * 参考文档
+    * mysqldump — A Database Backup Program
+      * http://dev.mysql.com/doc/refman/5.5/en/mysqldump.html
+
+## Import Data ##
+```
+# 在 website_db 数据库中执行 /tmp/website_db.sql 文件中的 SQL 语句 (即可用于导入数据)
+/usr/local/mysql/bin/mysql -u root -p website_db < /tmp/website_db.sql
+
+# 如果 /tmp/website_db.sql 中已经有了 SQL 语句( USE website_db; ), 则可以不用指定数据库名称
+/usr/local/mysql/bin/mysql -u root -p < /tmp/website_db.sql
+```
+  * 参考文档
+    * Executing SQL Statements from a Text File
+      * http://dev.mysql.com/doc/refman/5.5/en/batch-commands.html
+    * mysqlimport — A Data Import Program
+      * http://dev.mysql.com/doc/refman/5.5/en/mysqlimport.html
+
+
+
+---
+
+
+# MySQL Database Management #
+
+以下操作需要先登录到 mysql server
+  * [登录 mysql server](mysql#Login_Server.md)
+
+## SHOW DATABASES ##
+```
+/* 显示全部数据库 */
+SHOW DATABASES;
+```
+
+## CREATE DATABASE ##
+```
+/* 创建新数据库 website_db, 使用 utf8 字符集 */
+CREATE DATABASE `website_db` CHARACTER SET utf8;
+```
+
+## DROP DATABASE ##
+```
+/* 删除数据库 website_db (特别注意：该操作会删除该数据库下的全部数据) */
+DROP DATABASE `website_db`;
+```
+
+## CREATE USER ##
+```
+/* 创建新用户 tom, 密码是 mypass, 只允许通过 localhost 连接 mysql server (如果希望允许远程登录, 则将 localhost 改为 %) */
+CREATE USER 'tom'@'localhost' IDENTIFIED BY 'mypass';
+```
+
+## Delete User ##
+```
+/* 删除用户 tom */
+DELETE FROM mysql.user WHERE user = "tom";
+FLUSH PRIVILEGES;
+```
+  * 备注
+    * 删除用户也可以使用 DROP USER `[username]`，但需要指定 hostname
+    * 详见 http://dev.mysql.com/doc/refman/5.5/en/drop-user.html
+
+## Edit User Password ##
+```
+/* 修改用户 bob 的密码为 newpass */
+UPDATE mysql.user SET Password=PASSWORD('newpass') WHERE User='bob';
+FLUSH PRIVILEGES;
+```
+  * 备注
+    * 修改用户密码不要使用 SET PASSWORD, 因为这个命令可能会被记录到 server log 或  ~/.mysql\_history 文件中，从而导致密码泄露
+    * 详见 http://dev.mysql.com/doc/refman/5.5/en/set-password.html
+
+## Grant User Database ##
+```
+/* 赋予用户 tom 通过 localhost 操作数据库 website_db (全部权限) */
+GRANT ALL ON website_db.* TO 'tom'@'localhost';
+```
+
+
+
+---
+
+
+
+# how to install mysql server 5.1.58 #
+
+
+```
+make clean
+rm config.cache
+```
+  * 常用编译命令
+```
+./configure \
+    --prefix=/usr/local/mysql \
+    --with-tcp-port=3306 \
+    --with-unix-socket-path=/tmp/mysql.sock
+```
+
+
+
+---
+
+
+
+# how to install mysql server 5.5.15 #
+
+## 1. 准备工作 ##
+
+切换到 root 用户
+```
+su root
+```
+
+创建运行 mysql server 的用户
+```
+groupadd mysql
+
+# 注意必须禁止该用户使用远程登录
+useradd -M -r -s /sbin/nologin -g mysql mysql
+```
+
+创建以下目录
+```
+mkdir -p /root/software
+```
+
+下载相关软件
+```
+cd /root/software
+
+# 下载 mysql 源代码
+wget http://popsrc.googlecode.com/files/mysql-5.5.20.tar.gz
+
+# 下载编译安装 mysql 源代码所需软件
+wget http://popsrc.googlecode.com/files/cmake-2.8.7.tar.gz
+```
+
+## 2. 安装 cmake ##
+
+```
+cd /root/software
+tar zxvf cmake-2.8.7.tar.gz
+cd cmake-2.8.7
+./bootstrap
+make && make install
+```
+
+如果安装过程中出现错误，需要执行以下命令然后再重新编译安装
+```
+make clean
+rm config.cache
+```
+
+  * 参考文档
+    * install Cmake
+      * http://www.cmake.org/cmake/help/install.html
+
+## 3. 安装 mysql ##
+
+```
+cd /root/software
+tar zxvf mysql-5.5.20.tar.gz
+cd mysql-5.5.20
+cmake . \
+    -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
+    -DMYSQL_TCP_PORT=3306 \
+    -DMYSQL_UNIX_ADDR=/tmp/mysql.sock 
+make && make install
+```
+
+如果安装过程中出现错误（或者需要修改编译参数），需要执行以下命令然后再重新编译安装
+```
+make clean
+rm CMakeCache.txt
+```
+
+  * 参考文档
+    * Installing MySQL from Source
+      * http://dev.mysql.com/doc/refman/5.5/en/source-installation.html
+    * MySQL Source-Configuration Options
+      * http://dev.mysql.com/doc/refman/5.5/en/source-configuration-options.html
+
+## 4. 初始化 mysql ##
+```
+# 方式一：使用默认位置保存数据
+chown -R mysql:mysql /usr/local/mysql
+cd /usr/local/mysql; ./scripts/mysql_install_db --user=mysql --force
+chown -R root /usr/local/mysql
+chown -R mysql /usr/local/mysql/data
+```
+```
+# 方式二：使用其它位置保存数据
+chown -R mysql:mysql /usr/local/mysql
+chown -R root /usr/local/mysql
+
+mkdir -p /home/mysql/data
+chown -R mysql:mysql /home/mysql/
+cd /usr/local/mysql; ./scripts/mysql_install_db --user=mysql --force --datadir=/home/mysql/data
+chown -R root /home/mysql
+chown -R mysql /home/mysql/data
+```
+  * 参考文档
+    * Unix Postinstallation Procedures
+      * http://dev.mysql.com/doc/refman/5.5/en/unix-postinstallation.html
+    * mysql\_install\_db — Initialize MySQL Data Directory
+      * http://dev.mysql.com/doc/refman/5.5/en/mysql-install-db.html
+
+## 5. mysql 配置文件 ##
+```
+cp /usr/local/mysql/support-files/my-medium.cnf /etc/my.cnf
+
+# 用 vi 打开 /etc/my.cnf, 将 `[mysqld]` 下面的 max_allowed_packet 修改为以下值
+# max_allowed_packet = 32M
+```
+
+## 6. [Starting and Stopping MySQL Automatically](mysql#Starting_and_Stopping_MySQL_Automatically.md) ##
+
+## 7. [Start Server](mysql#Start_Server.md) ##
+
+## 8. [Securing the Initial MySQL Accounts](mysql#Securing_the_Initial_MySQL_Accounts.md) ##
+
+## 9. How to uninstall ##
+
+  * [Backup Data](mysql#Backup_Data.md)
+  * [Stop Server](mysql#Stop_Server.md)
+  * 执行以下 shell 命令
+```
+# 取消随机启动设置
+rm -f /etc/rc0.d/K01mysql
+rm -f /etc/rc3.d/S99mysql
+rm -f /etc/init.d/mysql.server
+
+# 删除 mysql 的配置文件
+rm -f /etc/my.cnf
+
+# 删除 mysql 相关文件 (再次提醒一定要先备份好数据)
+rm -fr /usr/local/mysql
+```
+
+
+
+---
+
+
+
+# how to install multi mysql server #
+
+## 第一种、安装多个同一版本的 mysql server ##
+### 1. 以正常方式安装好 mysql server ###
+
+## 第二种、安装多个不同版本的 mysql server ##
+
+
+---
+
+
+# FAQ #
+
+  1. 查看指定数据库占用空间
+```
+/* 查看数据大小 */
+SELECT CONCAT(ROUND(SUM(data_LENGTH)/(1024*1024),2),'MB') AS 'Data Size' FROM mysql.tables WHERE table_schema='website_db';
+
+/* 查看索引大小 */
+SELECT CONCAT(ROUND(SUM(index_LENGTH)/(1024*1024),2),'MB') AS 'Index Size' FROM mysql.tables WHERE table_schema='website_db';
+```
